@@ -1,0 +1,40 @@
+.shop-container{
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.shop-header{
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    justify-content: space-between;
+}
+
+.shop-welcome h1, .shop-welcome p{
+    margin: 10px 0px;
+}
+
+.shop-cart-button{
+    background: rgba(108, 71, 255, 0.2);
+    border: 1px solid var(--color-primary);
+    color: var(--text-primary);
+    border-radius: 12px;
+    padding: 1.2rem 2.5rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+    align-self: center;
+}
+
+.load-products-buttons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}

@@ -1,67 +1,4 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    margin: 0;
-    padding: 0;
-    background-color: #080813;
-}
-
-body {
-    margin: 0;
-    background-color: #080813;
-}
-
-
 /* Parte del header */
-.main-header {
-    height: 72px;
-    background-color: #17172b;
-    border-bottom: 1px solid #2e2764;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 32px;
-    color: white;
-}
-
-.header-left {
-    width: 280px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.logo-icon {
-    font-size: 26px;
-}
-
-.logo-text {
-    color: #00e5ff;
-    font-size: 28px;
-    font-weight: 900;
-}
-
-.header-center {
-    flex: 1;
-    text-align: center;
-    color: #a7aac7;
-    font-size: 16px;
-    font-weight: 400;
-    margin: 0;
-}
-
-.header-right {
-    width: 280px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 10px;
-}
-
 .header-btn,
 .admin-btn {
     background-color: #201a46;
@@ -89,11 +26,10 @@ body {
     min-height: calc(100vh - 72px);
     background-color: #080813;
     color: #f5f5ff;
-    padding: 28px 20px 50px;
 }
 
 .products-container {
-    max-width: 980px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -110,9 +46,10 @@ body {
 }
 
 .products-top h2 {
-    font-size: 28px;
+    font-size: 60px;
     margin-bottom: 6px;
     color: white;
+    font-family: var(--font-primary);
 }
 
 .products-top h2 span,
@@ -122,7 +59,7 @@ body {
 
 .products-top p {
     color: #a7aac7;
-    font-size: 15px;
+    font-size: 1.2rem;
 }
 
 .cart-link {
@@ -130,6 +67,7 @@ body {
     background-color: #4e35cf;
     color: white;
     font-weight: 700;
+    font-size: 1.4rem;
     padding: 12px 20px;
     border-radius: 10px;
     border: 1px solid #7057ff;
@@ -151,6 +89,7 @@ body {
     border-radius: 999px;
     font-weight: 700;
     cursor: pointer;
+    font-size: 1.2rem;
 }
 
 .category-button.active {
@@ -163,22 +102,18 @@ body {
 .search-box {
     display: flex;
     align-items: center;
-    gap: 12px;
-    background-color: #101b3d;
-    border: 1px solid #263e8f;
-    border-radius: 9px;
-    padding: 13px 16px;
+    gap: 1rem;
+    background: transparent;
+    border: 1.2px solid #263e8f;
+    border-radius: 12px;
+    padding: 8px 16px;
     margin-bottom: 18px;
 }
 
-.search-box input {
-    width: 100%;
-    background: transparent;
-    border: none;
-    outline: none;
-    color: white;
-    font-size: 15px;
+.search-box span{
+    font-size: 1.4rem;
 }
+
 
 .search-box input::placeholder {
     color: #8f96bd;

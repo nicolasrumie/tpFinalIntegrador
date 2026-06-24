@@ -5,25 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mizuta | Productos</title>
 
-    <link rel="stylesheet" href="css/styles-productos.css">
-    <link rel="icon" href="assets/img/rsz_2dreamina-2026-06-19-4111-proyecto_sin_no.png">
+    <link rel="stylesheet" href="/frontend/css/styles-productos.css">
+    <link rel="stylesheet" href="/frontend/css/styles.css">
+    <link rel="icon" href="/frontend/assets/img/rsz_2dreamina-2026-06-19-4111-proyecto_sin_no.png">
 </head>
 <body>
-
-    <header class="main-header">
-        <div class="header-left">
-            <span class="logo-icon">🎮</span>
-            <span class="logo-text">Mizuta</span>
+    <nav id="navbar">
+        <div class="navbar-name-logo">
+            <img src="/frontend/assets/img/rsz_2dreamina-2026-06-19-4111-proyecto_sin_no.png" alt="img-logo" href="#">
+            <span href="#">Mizuta</span>
         </div>
-
-        <p class="header-center">Programación III · UTN Avellaneda</p>
-
-        <nav class="header-right">
-            <button class="header-btn">☀️</button>
-            <button class="header-btn">🛒</button>
-            <a class="admin-btn" href="#">⚙️ Admin</a>
-        </nav>
-    </header>
+        <p class="info-navbar">Programación III | UTN Avellaneda</p>
+        <div>
+            <button class="nav-theme-button">☀️</button>
+            <button class="nav-admin-button">⚙️ Admin</button>
+        </div> 
+    </nav>
 
     <main class="products-main">
 
@@ -46,7 +43,7 @@
 
             <div class="search-box">
                 <span>🔍</span>
-                <input type="text" placeholder="Buscar producto...">
+                <input class="input-user" type="text" placeholder="Buscar producto...">
             </div>
 
             <section class="products-grid" id="listado-productos">

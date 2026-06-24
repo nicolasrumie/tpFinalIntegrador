@@ -1,9 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
 
 :root {
     --bg-primary: #0d0d1a;
     --bg-secondary: #1a1a2e;
+    --bg-button: #201a46;
     --bg-card: #16213e;
     --bg-hover: #0f3460;
     --color-primary: #6c47ff;
@@ -15,13 +16,13 @@
     --text-secondary: #b8b8cc;
     --text-muted: #9090a8;
     --font-primary: "Black Ops One", system-ui;
+    --font-secondary: "Roboto Condensed", system-ui;
 }
 
 
 body{
     background-color: var(--bg-primary);
-    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-    color: white;
+    font-family: var(--font-secondary);
 }
 
 #navbar {
@@ -31,7 +32,7 @@ body{
     height: 90px;
     border-bottom: 1px solid var(--color-primary);
     font-family: var(--font-primary);
-    padding: 0px 15px 0px 15px;
+    padding: 0px 15px;
 }
 
 .info-navbar {
@@ -51,25 +52,34 @@ body{
     font-weight: 700;
 }
 
-.nav-theme-button, .nav-admin-button{
+.nav-theme-button,
+.nav-admin-button{
     margin: 20px 10px 20px 10px;
-    border-radius: 10px;
-    padding: 7px 17px;
     font-family: var(--font-primary);
-    font-weight: 700;
     cursor: pointer;
     transform: scale(1.10);
     font-size: 18px;
-    background-color: var(--color-primary);
+    background-color: var(--bg-button);
     color: var(--text-primary);
+
+    border: 1px solid var(--color-primary);
+    border-radius: 9px;
+    padding: 9px 13px;
+    font-weight: 700;
+    text-decoration: none;
 }
 
 .nav-theme-button:hover,
 .nav-admin-button:hover{
     transform: scale(1.05);
-    box-shadow: 0 0 0 3px var(--color-primary); 
+    box-shadow: 0 0 0 2px var(--color-primary); 
     transition: all 0.3s ease;
     background-color: var(--bg-hover);
+}
+
+.nav-admin-button{
+    color: #ffd166;
+    border-color: #8c6f2f;
 }
 
 .main-container {
@@ -105,7 +115,7 @@ body{
     justify-content: center;
     align-items: center;
     text-align: center;
-    gap: 5rem;
+    gap: 3.5rem;
 }
 
 .principal-title{

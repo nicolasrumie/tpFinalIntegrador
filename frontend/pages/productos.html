@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mizuta | Productos</title>
+
+    <link rel="stylesheet" href="../css/styles-productos.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="icon" href="../assets/img/rsz_2dreamina-2026-06-19-4111-proyecto_sin_no.png">
+</head>
+<body>
+    <nav id="navbar">
+        <div class="navbar-name-logo">
+            <img src="../assets/img/rsz_2dreamina-2026-06-19-4111-proyecto_sin_no.png" alt="img-logo">
+            <span href="#">Mizuta</span>
+        </div>
+        <p class="info-navbar">Programación III | UTN Avellaneda</p>
+        <div>
+            <button class="nav-theme-button">☀️</button>
+            <button class="nav-admin-button">⚙️ Admin</button>
+        </div> 
+    </nav>
+
+    <main class="products-main">
+
+        <section class="products-container">
+
+            <div class="products-top">
+                <div><!--le puse fran provisional, luego cambiamos por el nombre del cliente-->
+                    <h2>Hola, <span class="client-name">Fran</span> 👋</h2>
+                    <p>Elegí tus productos favoritos y armá tu carrito.</p>
+                </div>
+
+                <a href="#" class="cart-link">🛒 Ver carrito</a>
+            </div>
+
+            <section class="category-tabs">
+                <button class="category-button active">✨ Todos</button>
+                <button class="category-button">🎮 Videojuegos</button>
+                <button class="category-button">🎧 Accesorios</button>
+            </section>
+
+            <div class="search-box">
+                <span>🔍</span>
+                <input class="input-user" type="text" placeholder="Buscar producto...">
+            </div>
+
+            <section class="products-grid" id="listado-productos">
+                <!--cuando pongamos los productos desde la base-->
+            </section>
+
+            <div class="pagination">
+                <button disabled>‹ Anterior</button>
+                <button class="active-page">1</button>
+                <button>2</button>
+                <button>3</button>
+                <button>Siguiente ›</button>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+        const listadoProductos = document.getElementById("listado-productos");
+
+        const url = "http://localhost:3001/api/products";
+
+        async function obtenerProductos() {
+            try {
+                const response = await fetch(url);
+
+                if (!response.ok) {
+                    const parsedResponse = await response.json();
+                    throw new Error(parsedResponse.message);
+                }
+
+                const { payload } = await response.json();
+                console.log(payload);
+
+                renderizarProductos(payload);
+            } catch (error) {
+                console.error(error);
+                mostrarError(error.message);
+            }
+        }
+
+        function renderizarProductos(productos) {
+            let htmlProductos = "";
+            
+            productos.forEach(producto => {
+                htmlProductos += `
+                    <article class="product-card">
+                        <div class="product-image-area">
+                            <img src="${producto.image}" alt="${producto.name}">
+                        </div>
+
+                        <div class="product-info">
+                            <span class="product-badge">${producto.category}</span>
+                            <h3>${producto.name}</h3>
+                            
+                            <div class="product-bottom">
+                                <strong>$${producto.price}</strong>
+                                <button>Agregar</button>
+                            </div>
+                        </div>
+                    </article>`;
+            });
+
+            listadoProductos.innerHTML = htmlProductos;
+        }
+
+        function mostrarError(mensaje) {
+            listadoProductos.innerHTML = `
+                <p class="mensaje-error">${mensaje}</p>`;
+        }
+
+        obtenerProductos();
+    </script>
+
+</body>
+</html>

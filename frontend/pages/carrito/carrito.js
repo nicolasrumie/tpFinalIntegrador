@@ -57,9 +57,6 @@ function limpiarCarrito()
     cargarProductosCarrito();
 
     window.location.reload(); // Recarga la página para reflejar la limpieza del carrito.
-    
-    // Alert de confirmación!
-    alert("Carrito limpiado correctamente");
 }
 
 function productsView(){

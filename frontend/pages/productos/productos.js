@@ -1,4 +1,9 @@
 //--- Funcion que obtiene el carrito del LocalStorage, lo parsea a un array y lo retorna ---//
+if (!sessionStorage.getItem("nombreCliente")) {
+    // Si no hay nombre en la sesión, lo patitas a la calle (al index)
+    window.location.href = "../../index.html"; // Ajustá la ruta según dónde esté tu index
+}
+
 function obtenerCarrito() 
 {
     const carritoString = localStorage.getItem("carrito");
@@ -121,3 +126,13 @@ function borrarCarrito()
     localStorage.removeItem("carrito");
     alert("Carrito vaciado exitosamente.");
 }
+
+window.addEventListener("DOMContentLoaded", () => {
+    // Leemos desde sessionStorage
+    const nombreGuardado = sessionStorage.getItem("nombreCliente");
+    const contenedorNombre = document.getElementById("nombre-perfil");
+
+    if (nombreGuardado && contenedorNombre) {
+        contenedorNombre.innerText = nombreGuardado;
+    }
+});

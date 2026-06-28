@@ -164,7 +164,7 @@
 }
 
 .product-info h3 {
-    font-size: 18px;
+    font-size: 24px;
     margin-bottom: 8px;
     color: white;
 }
@@ -185,7 +185,7 @@
 
 .product-bottom strong {
     color: #00e5ff;
-    font-size: 18px;
+    font-size: 22px;
 }
 
 .product-bottom button {
@@ -193,8 +193,9 @@
     background-color: #6d4aff;
     color: white;
     font-weight: 700;
+    font-size: 0.85rem;
     border-radius: 8px;
-    padding: 9px 12px;
+    padding: 9px 18px;
     cursor: pointer;
 }
 

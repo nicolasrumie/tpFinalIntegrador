@@ -7,9 +7,9 @@ dotenv.config(); // Cargamos las variables de entorno
 export default {
     port: process.env.PORT || 3001,
     database: {
-        host: process.env.DB_HOST,
-        name: process.env.DB_NAME,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD
+        host: process.env.DB_HOST || "localhost",
+        name: process.env.DB_NAME || "mizuta_db",
+        user: process.env.DB_USER || "root",
+        password: process.env.DB_PASSWORD || ""
     }
 }

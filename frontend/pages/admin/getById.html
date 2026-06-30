@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | Consultar producto</title>
+
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="navbar-name-logo">
+            <span>Mizuta Admin</span>
+        </div>
+
+        <p class="info-navbar">GET | Consultar producto por ID</p>
+
+        <div class="admin-nav-links">
+            <a class="nav-admin-button" href="./get.html">Ver todos</a>
+            <a class="nav-admin-button" href="./post.html">Crear</a>
+            <a class="nav-admin-button" href="./put.html">Modificar</a>
+            <a class="nav-admin-button" href="./delete.html">Baja / Alta</a>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <section>
+            <h1>Consultar producto</h1>
+
+            <input type="number" id="input-id" class="admin-input" placeholder="Ingrese ID del producto">
+            <button id="btn-buscar" class="admin-action-button">Buscar producto</button>
+
+            <div id="contenedor-producto"></div>
+        </section>
+    </main>
+
+    <script>
+        const inputId = document.getElementById("input-id");
+        const btnBuscar = document.getElementById("btn-buscar");
+        const contenedorProducto = document.getElementById("contenedor-producto");
+
+        async function buscarProducto() {
+            try {
+                const id = inputId.value;
+                const url = `http://localhost:3001/api/products/${id}`;
+                
+                const response = await fetch(url);
+
+                const data = await response.json();
+                console.log(data);
+
+                mostrarProducto(data.payload);
+            } catch (error) {
+                console.log(error);
+                contenedorProducto.innerHTML= `
+                <p>Error al buscar el producto</p>`;
+            }
+        }
+
+        function mostrarProducto(productos) {
+            if(productos.length === 0) {
+                contenedorProducto.innerHTML= `
+                    <p>No se encontro ningun producto con ese ID</p>`;
+                return;
+            }
+            
+            const producto = productos[0];
+            contenedorProducto.innerHTML= `
+                <div>
+                    <h3>${producto.name}</h3>
+                    <p>ID: ${producto.id}</p>
+                    <p>Categoria: ${producto.category}</p>
+                    <p>Precio: $${producto.price}</p>
+                    <p>Activo: ${producto.active}</p>
+                    <img src = "${producto.image}" alt="${producto.name}" width="150">
+                </div>`;
+        }
+        btnBuscar.addEventListener("click", buscarProducto);
+    </script>
+
+</body>
+</html>

@@ -111,7 +111,7 @@ app.put("/api/products/:id", validateProduct, async (req, res) => {
 
         res.status(200).json({
             message: "Producto actualizado con exito",
-            affectedRows: rows.affectedRows
+            payload: rows
         });
     } catch (error) {
         console.log(error);
@@ -122,6 +122,48 @@ app.put("/api/products/:id", validateProduct, async (req, res) => {
     }
 });
 
+app.delete("/api/products/:id", async (req, res) => {
+    try {
+        const id = req.params.id;
+
+        const sql = "UPDATE products SET ative = false WHERE id = ?";
+
+        const [rows] = await connection.query(sql, [id]);
+
+        res.status(200).json({
+            message: "Producto dado de baja",
+            payload: rows
+        });
+    } catch (error) {
+        console.log(error);
+
+        res.status(500).json({
+            message: "Error interno del server"
+        });
+    }
+});
+
+// endpoint put para reactivar el producto
+app.put("/api/products/:id/active", async (req, res) => {
+    try {
+        const id = req.params.id;
+
+        const sql = "UPDATE products SET active = true WHERE id = ?";
+
+        const [rows] = await connection.query(sql, [id]);
+
+        res.status(200).json({
+            message: "Producta dado de alta",
+            payload: rows
+        });
+    } catch (error) {
+        console.log(error);
+
+        res.status(500).json({
+            message: "Error interno del servidor"
+        });
+    }
+});
 
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);

@@ -28,6 +28,7 @@ body{
 #navbar {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     background-color: var(--bg-secondary);
     height: 90px;
     border-bottom: 1px solid var(--color-primary);
@@ -221,4 +222,94 @@ body{
     text-align: center;
     padding: 1rem;
     font-size: 1.5rem;
+}
+
+/*Botonoes del apartado de admin*/
+
+.admin-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.admin-nav-links
+.nav-admin-button {
+    margin: 0;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.admin-action-button {
+    background-color: var(--color-primary);
+    color: var(--text-primary);
+    border: 2px solid #8c75ff;
+    border-radius: 10px;
+    padding: 10px 18px;
+    font-family: var(--font-secondary);
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin: 15px 0;
+    transition: all 0.3s ease;
+}
+
+.admin-action-button:hover {
+    background-color: #4e35cf;
+    transform: scale(1.05);
+    box-shadow: 0 0 12px rgba(108, 71, 255, 0.55);
+}
+
+.admin-action-button:active {
+    transform: scale(0.98);
+}
+
+/*Barra de busqueda del id*/
+
+.admin-input {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 2px solid var(--color-primary);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-family: var(--font-secondary);
+    font-size: 1.1rem;
+    outline: none;
+    margin-right: 10px;
+}
+
+.admin-input::placeholder {
+    color: var(--text-muted);
+}
+
+.admin-input:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.35);
+}
+
+/*El post ordenado de forma vertical*/
+
+.admin-section {
+    width: 80%;
+    max-width: 900px;
+    margin: 30px auto;
+    color: var(--text-primary);
+}
+
+.admin-section h1 {
+    font-size: 2.2rem;
+    margin-bottom: 20px;
+}
+
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 500px;
+}
+
+#mensaje {
+    margin-top: 20px;
+    color: var(--color-accent);
+    font-size: 1.2rem;
+    font-weight: 700;
 }

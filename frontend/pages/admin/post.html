@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | POST Producto</title>
+
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="navbar-name-logo">
+            <span>Mizuta Admin</span>
+        </div>
+
+        <p class="info-navbar">POST | Crear producto</p>
+
+        <div class="admin-nav-links">
+            <a class="nav-admin-button" href="./get.html">Ver todos</a>
+            <a class="nav-admin-button" href="./getById.html">Consultar</a>
+            <a class="nav-admin-button" href="./put.html">Modificar</a>
+            <a class="nav-admin-button" href="./delete.html">Baja / Alta</a>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <section class="admin-section">
+            <h1>Crear producto</h1>
+
+            <form id="form-crear-producto" class="admin-form">
+                <input type="text" id="input-name" class="admin-input" placeholder="Nombre del producto">
+
+                <input type="text" id="input-image" class="admin-input" placeholder="URL de la imagen">
+
+                <input type="text" id="input-category" class="admin-input" placeholder="Categoria">
+
+                <input type="number" id="input-price" class="admin-input" placeholder="Precio">
+
+                <button type="submit" class="admin-action-button">Crear producto</button>
+            </form>
+
+            <div id="mensaje"></div>
+        </section>
+    </main>
+
+    <script>
+        const formCrearProducto = document.getElementById("form-crear-producto");
+
+        const inputName = document.getElementById("input-name");
+        const inputImage = document.getElementById("input-image");
+        const inputCategory = document.getElementById("input-category");
+        const inputPrice = document.getElementById("input.price");
+
+        const mensaje = document.getElementById("mensaje");
+
+        async function crearProducto(e) {
+            e.preventDefault();
+
+            const nuevoProducto = {
+                name: inputName.value,
+                image: inputImage.value,
+                category: inputCategory.value,
+                price: inputPrice.value
+            };
+            
+            const response = await fetch("http://localhost:3001/api/products", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "aplication/json"
+                },
+                body: JSON.stringify(nuevoProducto)
+            });
+
+            const data = await response.json();
+            console.log(data);
+
+            mensaje.innerHTML = `
+            <p>${data.message}</p>`;
+
+            formCrearProducto.reset();
+        }
+
+        formCrearProducto.addEventListener("submit", crearProducto);
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | Ver productos</title>
+
+    <link rel="stylesheet" href="../../css/styles.css">
+</head>
+<body>
+    <nav id="navbar">
+        <div class="navbar-name-logo">
+            <span>Mizuta Admin</span>
+        </div>
+
+        <p class="info-navbar">GET | Ver todos los productos</p>
+
+        <div class="admin-nav-links">
+            <a class="nav-admin-button" href="./getById.html">Consultar</a>
+            <a class="nav-admin-button" href="./post.html">Crear</a>
+            <a class="nav-admin-button" href="./put.html">Modificar</a>
+            <a class="nav-admin-button" href="./delete.html">Baja / Alta</a>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <section>
+            <h1>Listado de productos</h1>
+        <button id="btn-cargar" class="admin-action-button">Cargar productos</button>
+
+        <div id="contenedor-productos"></div>
+        </section>
+    </main>
+
+    <script>
+        const btnCargar = document.getElementById("btn-cargar");
+        const contenedorProductos = document.getElementById("contenedor-productos");
+
+        const url = "http://localhost:3001/api/products";
+
+        async function obtenerProductos() {
+            try {
+                const response = await fetch(url);
+
+                const data = await response.json();
+                console.log(data);
+
+                mostrarProductos(data.payload);
+            } catch (error) {
+                console.log(error);
+                contenedorProductos.innerHTML = `
+                    <p>Error al obtener los productos</p>`;
+            }
+        }
+
+        function mostrarProductos(productos) {
+            let html = "";
+            productos.forEach(producto => {
+                html += `
+                    <div>
+                        <h3>${producto.name}</h3>
+                        <p>ID: ${producto.id}</p>
+                        <p>Categoria: ${producto.category}</p>
+                        <p>Precio: $${producto.price}</p>
+                        <p>Activo: ${producto.active}</p>
+                        <img src="${producto.image}" alt="${producto.name}" width="150">
+                        <hr>
+                    </div>`;
+            });
+            contenedorProductos.innerHTML = html;
+        }
+        btnCargar.addEventListener("click", obtenerProductos);
+    </script>
+</body>
+</html>

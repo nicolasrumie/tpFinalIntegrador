@@ -3,6 +3,9 @@
 import express from "express";
 import environments from "./src/api/config/environments.js";
 import connection from "./src/api/database/db.js";
+import { join } from "path";
+import { __dirname } from './src/api/utils/index.js';
+import viewRoutes from './src/api/routes/view.routes.js';
 import cors from "cors";
 
 const app = express();
@@ -18,6 +21,11 @@ console.log("CONFIGURACION LEIDA:", environments);
 app.use(cors()); // Middleware basico para permitir todas las solicitudes
 
 app.use(express.json());
+
+
+app.set("views", join(__dirname, "src", "views", "pages"));
+app.set("view engine", "ejs"); // Motor de vistas
+app.use(express.static(join(__dirname, "src", "public")));
 
 // Middleware logger para analizar todas las solicitudes por consola (tener el historial del consumo de nuestra Api REST en la consola)
 app.use((req, res, next) => {
@@ -164,6 +172,9 @@ app.put("/api/products/:id/active", async (req, res) => {
         });
     }
 });
+
+
+app.use("/", viewRoutes);
 
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);

@@ -1,8 +1,8 @@
 //--- Funcion que obtiene el carrito del LocalStorage, lo parsea a un array y lo retorna ---//
-if (!sessionStorage.getItem("nombreCliente")) {
+/*if (!sessionStorage.getItem("nombreCliente")) {
     // Si no hay nombre en la sesión, lo patitas a la calle (al index)
-    window.location.href = "../../index.html"; // Ajustá la ruta según dónde esté tu index
-}
+    window.location.href = "/index"; // Ajustá la ruta según dónde esté tu index
+}*/
 
 function obtenerCarrito() 
 {

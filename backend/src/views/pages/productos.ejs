@@ -1,26 +1,5 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mizuta | Productos</title>
-
-    <link rel="stylesheet" href="/frontend/css/styles.css">
-    <link rel="stylesheet" href="/frontend/css/styles-productos.css">
-    <link rel="icon" href="/frontend/assets/img/rsz_2dreamina-2026-06-19-4111-proyecto_sin_no.png">
-</head>
-<body>
-    <nav id="navbar">
-        <div class="navbar-name-logo">
-            <img src="/frontend/assets/img/rsz_2dreamina-2026-06-19-4111-proyecto_sin_no.png" alt="img-logo">
-            <span href="#">Mizuta</span>
-        </div>
-        <p class="info-navbar">Programación III | UTN Avellaneda</p>
-        <div>
-            <button class="nav-theme-button">☀️</button>
-            <button class="nav-admin-button">⚙️ Admin</button>
-        </div> 
-    </nav>
+<%- include("../partials/head.ejs") %>
+<%- include("../partials/nav.ejs") %> 
 
     <main class="products-main">
 
@@ -32,7 +11,7 @@
                     <p>Elegí tus productos favoritos y armá tu carrito.</p>
                 </div>
 
-                <a href="../carrito/carrito.html" class="cart-link">🛒 Ver carrito</a>
+                <a href="/carrito" class="cart-link">🛒 Ver carrito</a>
             </div>
 
             <section class="category-tabs">
@@ -51,7 +30,7 @@
             </section>
 
             <div class="pagination">
-                <button disabled>‹ Anterior</button>
+                <button>‹ Anterior</button>
                 <button class="active-page">1</button>
                 <button>2</button>
                 <button>3</button>
@@ -103,8 +82,10 @@
                             
                             <div class="product-bottom">
                                 <strong class="precio-producto">$${producto.price}</strong>
-                                <button class="btn-sumar-a-carrito"> + </button>
-                                <button class="btn-restar-a-carrito"> - </button>
+                                <div class="add-less-buttons">
+                                    <button class="btn-sumar-a-carrito"> + </button>
+                                    <button class="btn-restar-a-carrito"> - </button>
+                                </div>
                             </div>
                         </div>
                     </article>`;
@@ -120,6 +101,6 @@
 
         obtenerProductos();
     </script>
-    <script src="./productos.js"></script>
-</body>
-</html>
+    <script src="/js/productos.js"></script>
+
+<%- include("../partials/footer.ejs") %>

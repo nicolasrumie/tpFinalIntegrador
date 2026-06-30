@@ -1,13 +1,13 @@
 @import url("./styles.css");
 
 .page-container{
-    min-height: calc(100vh - 60px);
+    flex: 1;
     background: var(--bg-primary);
-    padding: 1.5rem 1rem 4rem;
+    padding-top: 1.5rem;
 }
 
 .cart-container{
-    max-width: 1000px;
+    max-width: 60%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -40,7 +40,7 @@
 }
 
 .cart-title{
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 800;
     color: var(--text-primary);
 }
@@ -53,7 +53,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.85rem;
-    animation: pulsoPlatinado 3s infinite alternate ease-in-out;
+    animation: pulsoPlatinado 2s infinite alternate ease-in-out;
     box-shadow: 0 32px 64px 0 rgba(0, 0, 0, 0.37), 0 0 10px rgba(220, 230, 255, 0.1);
 }
 
@@ -129,7 +129,7 @@
 .info-header{
     font-size: 2.2rem;
     font-weight: 700;
-    color: var(--text-primary);
+    color: var(--text-secondary);
     border-bottom: 1px solid var(--border-color);
     padding-bottom: 0.75rem;
 }
@@ -137,12 +137,12 @@
 .indicator{
     color: var(--text-secondary);
     font-family: var(--font-secondary);
-    font-size: 1.8rem;
+    font-size: 1.2rem;
 }
 
 .product{
     color: var(--text-secondary);
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 
 }
 
@@ -151,7 +151,7 @@
     color: var(--text-secondary);
     font-family: var(--font-secondary);
     padding: 8px;
-    font-size: 1.8rem;
+    font-size: 1.3rem;
 }
 
 .contenedor-limpiar {
@@ -167,9 +167,8 @@
     color: #f87171; /* Texto rojo pastel/alerta */
     border: 1px solid rgba(239, 68, 68, 0.4);
     font-family: var(--font-secondary); /* Tu fuente "Roboto Condensed" */
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
-    text-transform: uppercase;
     letter-spacing: 1px;
     
     /* 2. Forma y espaciado */

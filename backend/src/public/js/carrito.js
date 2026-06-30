@@ -60,7 +60,7 @@ function limpiarCarrito()
 }
 
 function productsView(){
-    window.location.href = "../productos/productos.html";
+    window.location.href = "/productos";
 }
 
 // Asociar evento al botón cuando la página carga

@@ -1,25 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="/frontend/assets/img/rsz_2dreamina-2026-06-19-4111-proyecto_sin_no.png" type="image/x-icon">
-    <link rel="stylesheet" href="css/styles.css">
-    <title>Mizuta</title>
-</head>
-<body>
-    
-    <nav id="navbar">
-        <div class="navbar-name-logo">
-            <img src="assets/img/rsz_2dreamina-2026-06-19-4111-proyecto_sin_no.png" alt="img-logo" href="#">
-            <span href="#">Mizuta</span>
-        </div>
-        <p class="info-navbar">Programación III | UTN Avellaneda</p>
-        <div>
-            <button class="nav-theme-button">☀️</button>
-            <button class="nav-admin-button">⚙️ Admin</button>
-        </div> 
-    </nav>
+<%- include("../partials/head.ejs") %>
+<%- include("../partials/nav.ejs") %> 
     <main>
         <div class="main-container">
             <div class="info-top">
@@ -66,5 +46,6 @@
     <footer class="footer-container">
         <p>Mizuta, 2026. Todos los derechos reservados</p>
     </footer>
-</body>
-</html>
+    
+<%- include("../partials/footer.ejs") %>
+

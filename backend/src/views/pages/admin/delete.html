@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | DELETE Producto</title>
+
+    <link rel="stylesheet" href="../../../public/css/styles.css">
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="navbar-name-logo">
+            <span>Mizuta Admin</span>
+        </div>
+
+        <p class="info-navbar">DELETE | Baja y alta lógica</p>
+
+        <div class="admin-nav-links">
+            <a class="nav-admin-button" href="./get.html">Ver todos</a>
+            <a class="nav-admin-button" href="./getById.html">Consultar</a>
+            <a class="nav-admin-button" href="./post.html">Crear</a>
+            <a class="nav-admin-button" href="./put.html">Modificar</a>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <section class="admin-section">
+            <h1>Baja / Alta de producto</h1>
+
+            <form id="getProduct-form" class="admin-form">
+                <input type="number" name="idProd" id="idProd" class="admin-input" placeholder="ID del producto" required>
+
+                <input type="submit" value="Consultar producto" class="admin-action-button">
+            </form>
+
+            <div id="contenedor-productos"></div>
+
+            <div id="mensaje"></div>
+        </section>
+    </main>
+
+    <script>
+        const contenedorProductos = document.getElementById("contenedor-productos");
+        const getProductForm = document.getElementById("getProduct-form");
+        const mensaje = document.getElementById("mensaje");
+
+        const urlBase = "http://localhost:3001/api/products";
+
+        getProductForm.addEventListener("submit", async event => {
+            event.preventDefault();
+
+            const idProd = event.target.idProd.value.trim();
+
+            if (!idProd) {
+                mostrarError("Ingresa un ID valido");
+                return;
+            }
+
+            try {
+                const response = await fetch(`${urlBase}/${idProd}`);
+
+                const datos = await response.json();
+
+                console.log(datos);
+
+                if (!response.ok) {
+                    mostrarError(datos.message);
+                    return;
+                }
+
+                const producto = datos.payload[0];
+
+                if (!producto) {
+                    mostrarError("No se encontro ningun producto con ese ID");
+                    return;
+                }
+
+                renderizarProducto(producto);
+
+            } catch (error) {
+                console.log(error);
+
+                mostrarError("Error de conexion con el servidor");
+            }
+        });
+
+        function renderizarProducto(producto) {
+            let textoEstado = "";
+
+            if (producto.active == 1) {
+                textoEstado = "Activo";
+            } else {
+                textoEstado = "Inactivo";
+            }
+
+            const htmlProducto = `
+                <div class="admin-product-card">
+                    <h3>${producto.name}</h3>
+                    <p>ID: ${producto.id}</p>
+                    <p>Categoria: ${producto.category}</p>
+                    <p>Precio: $${producto.price}</p>
+                    <p>Estado: ${textoEstado}</p>
+                    <img src="${producto.image}" alt="${producto.name}" width="180">
+
+                    <div>
+                        <button id="deleteProduct-button" class="admin-action-button">
+                            Dar de baja
+                        </button>
+
+                        <button id="activeProduct-button" class="admin-action-button">
+                            Activar producto
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            contenedorProductos.innerHTML = htmlProducto;
+            mensaje.innerHTML = "";
+
+            const deleteProductButton = document.getElementById("deleteProduct-button");
+            const activeProductButton = document.getElementById("activeProduct-button");
+
+            deleteProductButton.addEventListener("click", event => {
+                event.stopPropagation();
+
+                const confirmacion = confirm("Queres dar de baja este producto?");
+
+                if (!confirmacion) {
+                    alert("Baja cancelada");
+                } else {
+                    darDeBajaProducto(producto.id);
+                }
+            });
+
+            activeProductButton.addEventListener("click", event => {
+                event.stopPropagation();
+
+                const confirmacion = confirm("Queres activar este producto?");
+
+                if (!confirmacion) {
+                    alert("Activacion cancelada");
+                } else {
+                    activarProducto(producto.id);
+                }
+            });
+        }
+
+        async function darDeBajaProducto(id) {
+            try {
+                const response = await fetch(`${urlBase}/${id}`, {
+                    method: "DELETE"
+                });
+
+                const parsedResponse = await response.json();
+
+                console.log(parsedResponse);
+
+                mensaje.innerHTML = `
+                    <p>${parsedResponse.message}</p>
+                `;
+
+                getProductForm.reset();
+                contenedorProductos.innerHTML = "";
+
+            } catch (error) {
+                console.log(error);
+
+                mensaje.innerHTML = `
+                    <p>Error al dar de baja el producto</p>
+                `;
+            }
+        }
+
+        async function activarProducto(id) {
+            try {
+                const response = await fetch(`${urlBase}/${id}/active`, {
+                    method: "PUT"
+                });
+
+                const parsedResponse = await response.json();
+
+                console.log(parsedResponse);
+
+                mensaje.innerHTML = `
+                    <p>${parsedResponse.message}</p>
+                `;
+
+                getProductForm.reset();
+                contenedorProductos.innerHTML = "";
+
+            } catch (error) {
+                console.log(error);
+
+                mensaje.innerHTML = `
+                    <p>Error al activar el producto</p>
+                `;
+            }
+        }
+
+        function mostrarError(mensajeError) {
+            contenedorProductos.innerHTML = `
+                <p class="mensaje-error">${mensajeError}</p>
+            `;
+
+            mensaje.innerHTML = "";
+        }
+    </script>
+
+</body>
+</html>

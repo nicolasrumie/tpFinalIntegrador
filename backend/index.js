@@ -134,7 +134,7 @@ app.delete("/api/products/:id", async (req, res) => {
     try {
         const id = req.params.id;
 
-        const sql = "UPDATE products SET ative = false WHERE id = ?";
+        const sql = "UPDATE products SET active = false WHERE id = ?";
 
         const [rows] = await connection.query(sql, [id]);
 

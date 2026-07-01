@@ -19,10 +19,10 @@
     --font-secondary: "Roboto Condensed", system-ui;
 }
 
-
 body{
     background-color: var(--bg-primary);
     font-family: var(--font-secondary);
+    margin: 0;
 }
 
 #navbar {

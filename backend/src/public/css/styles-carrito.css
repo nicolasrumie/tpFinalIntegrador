@@ -1,5 +1,9 @@
 @import url("./styles.css");
 
+body{
+    margin: 0;
+}
+
 .page-container{
     flex: 1;
     background: var(--bg-primary);
@@ -154,11 +158,12 @@
     font-size: 1.3rem;
 }
 
-.contenedor-limpiar {
+.contenedor-botones {
     display: flex;
     justify-content: center; /* Clava el botón en el centro horizontal */
     width: 100%;
     margin-top: 25px;
+    gap: 45px; /* Espacio entre los botones */
 }
 
 .btn-limpiar-carrito{
@@ -193,4 +198,38 @@
 .btn-limpiar-carrito:active {
     transform: translateY(0); /* Vuelve a su posición original */
     box-shadow: 0 0 5px rgba(239, 68, 68, 0.3);
+}
+
+.btn-comprar {
+    /* 1. Reset básico y tipografía */
+    background-color: rgba(0, 255, 204, 0.1); /* Verde neón sutil y transparente */
+    color: #00ffcc; /* Texto verde pastel/alerta */
+    border: 1px solid rgba(0, 255, 204, 0.4);
+    font-family: var(--font-secondary); /* Tu fuente "Roboto Condensed" */
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+
+    /* 2. Forma y espaciado */
+    padding: 12px 24px;
+    border-radius: 8px; /* Esquinas suavizadas */
+    cursor: pointer;
+
+    /* 3. Transición suave para los efectos */
+    transition: all 0.3s ease;
+    display: block;
+}
+
+.btn-comprar:hover {
+    background-color: #00b38f; /* Verde sólido al pasar el mouse */
+    color: #ffffff; /* Texto blanco brillante */
+    border-color: #00ffcc;
+    /* Sombra de neón verde súper pro */
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
+    transform: translateY(-2px); /* Se eleva un poquito */
+}
+
+.btn-comprar:active {
+    transform: translateY(0); /* Vuelve a su posición original */
+    box-shadow: 0 0 5px rgba(0, 255, 204, 0.3);
 }

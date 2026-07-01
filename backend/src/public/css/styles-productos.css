@@ -1,4 +1,9 @@
 /* Parte del header */
+body{
+    margin: 0;
+}
+
+
 .header-btn,
 .admin-btn {
     background-color: #201a46;

@@ -1,6 +1,6 @@
 function obtenerCarrito() 
 {
-    const carritoString = localStorage.getItem("carrito");
+    const carritoString = sessionStorage.getItem("carrito");
     return JSON.parse(carritoString) || [];
 }
 
@@ -51,7 +51,7 @@ function cargarProductosCarrito()
 function limpiarCarrito() 
 {
     // Limpia todo el LocalStorage
-    localStorage.removeItem("carrito");
+    sessionStorage.removeItem("carrito");
     
     // Recargar la tabla para que se actualice y muestre el carrito vacío
     cargarProductosCarrito();
@@ -65,6 +65,9 @@ function productsView(){
 function indexView(){
     window.location.href = "/index";
 }
+function ticketCartView(){
+    window.location.href = "/carrito-tickets";
+}
 
 // Asociar evento al botón cuando la página carga
 window.addEventListener("DOMContentLoaded", () =>
@@ -73,4 +76,5 @@ window.addEventListener("DOMContentLoaded", () =>
     document.querySelector(".btn-limpiar-carrito").addEventListener("click", limpiarCarrito);
     document.querySelector(".btn-seguir-comprando").addEventListener("click", productsView);
     document.querySelector(".navbar-name-logo").addEventListener("click", indexView);
+    document.querySelector(".btn-comprar").addEventListener("click", ticketCartView);
 });

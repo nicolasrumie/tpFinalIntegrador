@@ -6,7 +6,7 @@
 
 function obtenerCarrito() 
 {
-    const carritoString = localStorage.getItem("carrito");
+    const carritoString = sessionStorage.getItem("carrito");
     
     // 1. Si ni siquiera existe o está totalmente vacío, devolvemos array vacío de una
     if (!carritoString || carritoString.trim() === "") {
@@ -19,7 +19,7 @@ function obtenerCarrito()
     } catch (error) {
         console.warn("El LocalStorage estaba corrupto, y se reinició el carrito.");
         // Opcional: limpiamos el localStorage para que no vuelva a fallar
-        localStorage.removeItem("carrito"); 
+        sessionStorage.removeItem("carrito"); 
         return [];
     }
 }
@@ -28,7 +28,7 @@ function obtenerCarrito()
 function guardarCarrito(carrito) 
 {
     console.log(`Carrito actualizado: ${JSON.stringify(carrito)}`);
-    localStorage.setItem("carrito", JSON.stringify(carrito));
+    sessionStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
 function sumarAlCarrito(e) 
@@ -123,7 +123,7 @@ contenedorTarjetas.addEventListener("click", (e) => {
 
 function borrarCarrito()
 {
-    localStorage.removeItem("carrito");
+    sessionStorage.removeItem("carrito");
     alert("Carrito vaciado exitosamente.");
 }
 

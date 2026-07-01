@@ -127,12 +127,22 @@ function borrarCarrito()
     alert("Carrito vaciado exitosamente.");
 }
 
+function indexView(){
+    window.location.href = "/index";
+}
+
+const nombreCliente = sessionStorage.getItem("username"); // Reemplazá "username" por tu clave real
+
+if (!nombreCliente) {
+    // Si no hay nombre en el sessionStorage, lo mandamos directo al login
+    window.location.href = "/index"; // O la ruta de tu login
+}
+
 window.addEventListener("DOMContentLoaded", () => {
     // Leemos desde sessionStorage
-    const nombreGuardado = sessionStorage.getItem("nombreCliente");
-    const contenedorNombre = document.getElementById("nombre-perfil");
+    const clientName = sessionStorage.getItem("username");
+    const nameContainer = document.getElementById("nombre-perfil");
+    nameContainer.textContent = clientName ? clientName : "Invitado";
 
-    if (nombreGuardado && contenedorNombre) {
-        contenedorNombre.innerText = nombreGuardado;
-    }
+    document.querySelector(".navbar-name-logo").addEventListener("click", indexView);
 });

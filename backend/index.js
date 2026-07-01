@@ -7,12 +7,14 @@ import { join } from "path";
 import { __dirname } from './src/api/utils/index.js';
 import viewRoutes from './src/api/routes/view.routes.js';
 import cors from "cors";
+import session from "express-session";
 
 const app = express();
 
 /////////////////////
 // Config
 const PORT = environments.port;
+const { port, session_key } = environments;
 console.log("CONFIGURACION LEIDA:", environments);
 
 
@@ -22,6 +24,14 @@ app.use(cors()); // Middleware basico para permitir todas las solicitudes
 
 app.use(express.json());
 
+app.use(session({
+    secret: session_key, 
+    resave: false, 
+    saveUninitialized: false,
+    cookie: { 
+        secure: false
+    }
+}));
 
 app.set("views", join(__dirname, "src", "views", "pages"));
 app.set("view engine", "ejs"); // Motor de vistas
@@ -161,7 +171,7 @@ app.put("/api/products/:id/active", async (req, res) => {
         const [rows] = await connection.query(sql, [id]);
 
         res.status(200).json({
-            message: "Producta dado de alta",
+            message: "Producto dado de alta",
             payload: rows
         });
     } catch (error) {
@@ -171,6 +181,36 @@ app.put("/api/products/:id/active", async (req, res) => {
             message: "Error interno del servidor"
         });
     }
+});
+
+
+
+app.post('/index', (req, res) => {
+    // 1. Extraemos 'nombre' y lo renombramos a 'name'
+    const { nombre: name } = req.body; 
+
+    // 2. Validaciones en el Servidor
+    if (!name || name.trim() === "") {
+        return res.status(400).json({ 
+            message: "El nombre es obligatorio en el servidor." 
+        });
+    }
+
+    const soloLetras = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
+    if (!soloLetras.test(name)) {
+        return res.status(400).json({ 
+            message: "El nombre solo debe contener letras en el servidor." 
+        });
+    }
+
+    // 3. Si todo está bien, guardamos la sesión y RESPONDEMOS al frontend
+    req.session.user = { name: name.trim() };
+
+    // ESTO ES LO QUE FALTABA: Avisarle al frontend que fue exitoso
+    return res.status(200).json({
+        message: "Login exitoso",
+        redirectUrl: "/productos"
+    });
 });
 
 

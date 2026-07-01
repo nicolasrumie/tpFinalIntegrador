@@ -9,14 +9,14 @@ const { database } = environments;
 
 // Creamos la conexion a la BBDD (un pool de conexiones)
 const connection = mysql2.createPool({
-    host: database.host,
-    database: database.name,
-    user: database.user,
-    password: database.password
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    waitForConnections: true
 });
 
 export default connection;
-
 /* 
     - mysql2 es el modulo que nos provee de metodos para conectarnos a la BBDD
 

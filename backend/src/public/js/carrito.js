@@ -62,6 +62,9 @@ function limpiarCarrito()
 function productsView(){
     window.location.href = "/productos";
 }
+function indexView(){
+    window.location.href = "/index";
+}
 
 // Asociar evento al botón cuando la página carga
 window.addEventListener("DOMContentLoaded", () =>
@@ -69,4 +72,5 @@ window.addEventListener("DOMContentLoaded", () =>
     cargarProductosCarrito();
     document.querySelector(".btn-limpiar-carrito").addEventListener("click", limpiarCarrito);
     document.querySelector(".btn-seguir-comprando").addEventListener("click", productsView);
+    document.querySelector(".navbar-name-logo").addEventListener("click", indexView);
 });

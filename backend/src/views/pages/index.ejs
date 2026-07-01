@@ -1,5 +1,6 @@
 <%- include("../partials/head.ejs") %>
 <%- include("../partials/nav.ejs") %> 
+
     <main>
         <div class="main-container">
             <div class="info-top">
@@ -14,13 +15,14 @@
                 <div class="login-form-container">
                     <h2 class="form-title">Hola! ¿Cómo te llamas?</h2>
                     <p>Ingresá tu nombre para empezar a comprar.</p>
-                    <form action="">
-                        <div class="input-container">
-                            <span class="input-icon">👤</span>
-                            <input class="input-user" type="text" placeholder="Ej: Lionel Messi" maxlength="50" name="" id="input-nombre">
-                        </div>
-                        <button class="continue-button" id="btn-continuar" type="submit" disabled>Continuar →</button>
-                    </form>
+                    <div class="input-container">
+                        <span class="input-icon">👤</span>
+                        <input class="input-user" type="text" placeholder="Ej: Lionel Messi" maxlength="50" name="" id="input-nombre">
+                    </div>
+                    <div class="contenedor-errores">
+
+                    </div>
+                    <button class="continue-button" id="btn-continuar" type="button">Continuar →</button>
                 </div>
                 <div class="features-container">
                     <div class="feature">
@@ -46,6 +48,6 @@
     <footer class="footer-container">
         <p>Mizuta, 2026. Todos los derechos reservados</p>
     </footer>
-    
+    <script src="/js/login.js"></script>
 <%- include("../partials/footer.ejs") %>
 

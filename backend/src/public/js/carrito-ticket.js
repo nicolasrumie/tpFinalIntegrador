@@ -14,13 +14,13 @@ function downloadTicket() {
 
     doc.text("Mizuta | Ticket", 30, y);
     
-    y+= 20;
+    y+= 15;
 
     doc.setFontSize(12);
 
     carrito.forEach((producto, index) => {
         
-        doc.text(`Producto: ${producto.nombre} - Cantidad: ${producto.cantidad} - Precio: $${producto.precio}`, 40, y);
+        doc.text(`Producto: ${producto.nombre} - Cantidad: ${producto.cantidad} - Precio: $${producto.precio}`, 32, y);
         y += 10;
     });
 
@@ -32,6 +32,9 @@ function downloadTicket() {
     let nombreTicket = `pedido-${sessionStorage.getItem("username")}-${fecha.toISOString()}.pdf`;
     
     doc.save(nombreTicket);
+
+    sessionStorage.removeItem("carrito");
+
 }
 window.addEventListener("DOMContentLoaded", () =>
 {

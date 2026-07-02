@@ -37,16 +37,16 @@ async function login() {
         });
 
         ;
+        
+        const data = await response.json();
 
         if (!response.ok) {
             mostrarError(data.message); // Si el backend rechaza, muestra el por qué
             return;
         } 
 
-        const data = await response.json();
-        
         if (data.redirectUrl) {
-            sessionStorage.setItem("username", username); // Guardamos el nombre en sessionStorage
+            sessionStorage.setItem("username", username); // Guardo el nombre en sessionStorage
             window.location.href = data.redirectUrl;
         }
 

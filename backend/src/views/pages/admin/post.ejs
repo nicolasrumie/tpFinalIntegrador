@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin | POST Producto</title>
 
-    <link rel="stylesheet" href="../../../public/css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
 
@@ -17,10 +17,14 @@
         <p class="info-navbar">POST | Crear producto</p>
 
         <div class="admin-nav-links">
-            <a class="nav-admin-button" href="./get.html">Ver todos</a>
-            <a class="nav-admin-button" href="./getById.html">Consultar</a>
-            <a class="nav-admin-button" href="./put.html">Modificar</a>
-            <a class="nav-admin-button" href="./delete.html">Baja / Alta</a>
+            <a class="nav-admin-button" href="/admin/get">Ver todos</a>
+            <a class="nav-admin-button" href="/admin/getById">Consultar</a>
+            <a class="nav-admin-button" href="/admin/put">Modificar</a>
+            <a class="nav-admin-button" href="/admin/delete">Baja / Alta</a>
+
+            <form action="/admin/logout" method="POST">
+                <button type="submit" class="nav-admin-button">Cerrar sesion</button>
+            </form>
         </div>
     </nav>
 
@@ -50,7 +54,7 @@
         const inputName = document.getElementById("input-name");
         const inputImage = document.getElementById("input-image");
         const inputCategory = document.getElementById("input-category");
-        const inputPrice = document.getElementById("input.price");
+        const inputPrice = document.getElementById("input-price");
 
         const mensaje = document.getElementById("mensaje");
 
@@ -67,7 +71,7 @@
             const response = await fetch("http://localhost:3001/api/products", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "aplication/json"
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify(nuevoProducto)
             });

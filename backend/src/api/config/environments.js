@@ -6,7 +6,7 @@ dotenv.config(); // Cargamos las variables de entorno
 
 export default {
     port: process.env.PORT || 3001,
-    session_key: process.env.SESSION_KEY,
+    session_key: process.env.SESSION_KEY || "clave_mizuta",
     database: {
         host: process.env.DB_HOST || "localhost",
         name: process.env.DB_NAME || "mizuta_db",

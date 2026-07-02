@@ -8,6 +8,7 @@ import { __dirname } from './src/api/utils/index.js';
 import viewRoutes from './src/api/routes/view.routes.js';
 import cors from "cors";
 import session from "express-session";
+import bcrypt from "bcrypt";
 
 const app = express();
 
@@ -23,6 +24,10 @@ console.log("CONFIGURACION LEIDA:", environments);
 app.use(cors()); // Middleware basico para permitir todas las solicitudes
 
 app.use(express.json());
+
+app.use(express.urlencoded({
+    extended: true
+}));
 
 app.use(session({
     secret: session_key, 
@@ -62,7 +67,13 @@ function validateProduct(req, res, next) {
 /////////////////////
 // Endpoints
 app.get("/", (req, res) => {
-    res.send("Hola mundo");
+    res.send("Servidor corriendo");
+});
+
+app.get("/admin/login", (req, res) => {
+    res.render("admin/login", {
+        error: undefined
+    });
 });
 
 // GET all products
@@ -76,6 +87,26 @@ app.get("/api/products", async (req, res) => {
     res.status(200).json({
         payload: rows
     });
+});
+
+// GET active products
+app.get("/api/products/active", async (req, res) => {
+    try {
+        const sql = "SELECT * FROM products WHERE active = true";
+
+        const [rows] = await connection.query(sql);
+
+        res.status(200).json({
+            payload: rows
+        });
+
+    } catch (error) {
+        console.log(error);
+
+        res.status(500).json({
+            message: "Error interno del servidor"
+        });
+    }
 });
 
 // GET by id
@@ -184,6 +215,122 @@ app.put("/api/products/:id/active", async (req, res) => {
 });
 
 
+function requireAdmin(req, res, next) {
+    if (!req.session.admin) {
+        return res.redirect("/admin/login");
+    }
+
+    next();
+}
+
+
+app.post("/api/admin", async (req, res) => {
+    try {
+        const { name, email, password } = req.body;
+
+        if (!name || !email || !password) {
+            return res.status(400).json({
+                message: "Faltan datos obligatorios"
+            });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const sql = "INSERT INTO users (name, email, password) VALUES (?, ?, ?)";
+
+        const [rows] = await connection.query(sql, [name, email, hashedPassword]);
+
+        res.status(201).json({
+            message: "Usuario administrador creado con exito",
+            userId: rows.insertId
+        });
+
+    } catch (error) {
+        console.log(error);
+
+        res.status(500).json({
+            message: "Error interno del servidor"
+        });
+    }
+});
+
+app.post("/admin/login", async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        if (!email || !password) {
+            return res.render("admin/login", {
+                error: "Faltan campos en el formulario"
+            });
+        }
+
+        const sql = "SELECT * FROM users WHERE email = ?";
+
+        const [rows] = await connection.query(sql, [email]);
+
+        if (rows.length === 0) {
+            return res.render("admin/login", {
+                error: "No existe un administrador con ese email"
+            });
+        }
+
+        const user = rows[0];
+
+        const match = await bcrypt.compare(password, user.password);
+
+        if (!match) {
+            return res.render("admin/login", {
+                error: "Contraseña incorrecta"
+            });
+        }
+
+        req.session.admin = {
+            id: user.id,
+            name: user.name,
+            email: user.email
+        };
+
+        res.redirect("/admin/get");
+
+    } catch (error) {
+        console.log(error);
+
+        res.render("admin/login", {
+            error: "Error interno del servidor"
+        });
+    }
+});
+
+app.post("/admin/logout", (req, res) => {
+    req.session.destroy((error) => {
+        if (error) {
+            console.log(error);
+            return res.redirect("/admin/get");
+        }
+
+        res.redirect("/admin/login");
+    });
+});
+
+app.get("/admin/get", requireAdmin, (req, res) => {
+    res.render("admin/get");
+});
+
+app.get("/admin/getById", requireAdmin, (req, res) => {
+    res.render("admin/getById");
+});
+
+app.get("/admin/post", requireAdmin, (req, res) => {
+    res.render("admin/post");
+});
+
+app.get("/admin/put", requireAdmin, (req, res) => {
+    res.render("admin/put");
+});
+
+app.get("/admin/delete", requireAdmin, (req, res) => {
+    res.render("admin/delete");
+});
 
 app.post('/index', (req, res) => {
     // 1. Extraemos 'nombre' y lo renombramos a 'name'
@@ -212,7 +359,6 @@ app.post('/index', (req, res) => {
         redirectUrl: "/productos"
     });
 });
-
 
 app.use("/", viewRoutes);
 

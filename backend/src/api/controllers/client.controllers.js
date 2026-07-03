@@ -1,7 +1,6 @@
 export const validateClient = (req, res, next) => {
     const { nombre: name } = req.body; 
 
-    // 2. Validaciones en el Servidor
     if (!name || name.trim() === "") {
         return res.status(400).json({ 
             message: "El nombre es obligatorio en el servidor." 

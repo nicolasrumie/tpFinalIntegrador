@@ -64,13 +64,11 @@ body{
 @keyframes pulsoPlatinado {
     0% {
         border-color: rgba(180, 185, 195, 0.3);
-        /* Mantiene la sombra oscura pero baja el brillo de neón */
         box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37), 
                     0 0 5px rgba(220, 230, 255, 0.05);
     }
     100% {
         border-color: rgba(240, 245, 255, 0.85);
-        /* Expande el brillo platinado hacia afuera para el efecto de respiración */
         box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45), 
                     0 0 20px rgba(220, 230, 255, 0.3);
     }
@@ -82,52 +80,49 @@ body{
     border-spacing: 0;
     border-radius: 12px;
     overflow: hidden;
-    
-    /* Fondo oscuro semi-transparente para que se fusione con tu app */
     background-color: rgba(255, 255, 255, 0.03); 
-    /* Un borde sutil usando tu variable de color de borde */
-    border: 1px solid var(--border-color);        /* Corta las esquinas de los th/td que tocan los bordes */
+    border: 1px solid var(--border-color);
 }
 
 .table th {
-    background-color: rgba(255, 255, 255, 0.07); /* Un gris oscuro un poco más claro que la tabla */
-    color: var(--text-primary); /* Texto principal (blanco/brillante) */
-    font-family: var(--font-primary); /* Tu fuente principal "Black Ops One" */
+    background-color: rgba(255, 255, 255, 0.07);
+    color: var(--text-primary);
+    font-family: var(--font-primary);
     font-size: 0.9rem;
     letter-spacing: 1px;
-    text-transform: uppercase; /* Todo en mayúsculas para más estilo */
+    text-transform: uppercase;
     padding: 14px 18px;
     text-align: left;
-    border-bottom: 2px solid var(--border-color); /* Línea divisoria firme */
+    border-bottom: 2px solid var(--border-color);
 }
 
 .table-header {
     width: 100%;
     align-items: center;
-    padding: 0.5rem 1rem; /* Opcional: para que no quede pegado a los bordes */
+    padding: 0.5rem 1rem;
 }
 
 .table-header td {
-    color: var(--text-muted); /* Texto secundario más suave */
-    font-family: var(--font-secondary); /* "Roboto Condensed" */
+    color: var(--text-muted);
+    font-family: var(--font-secondary);
     padding: 14px 18px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Línea muy sutil entre productos */
-    transition: background-color 0.2s ease; /* Transición suave para el efecto hover */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background-color 0.2s ease;
 }
 
 .table-header:hover td {
     background-color: rgba(255, 255, 255, 0.05);
-    color: var(--text-primary); /* Resalta el texto al pasar el mouse */
+    color: var(--text-primary);
 }
 
 .table th:nth-child(2), .table-header td:nth-child(2) {
-    text-align: center; /* Centrar la columna de Cantidad */
+    text-align: center;
 }
 
 .table th:nth-child(3), .table-header td:nth-child(3) {
-    text-align: right;  /* Alinear los Precios a la derecha */
+    text-align: right;
     font-weight: bold;
-    color: var(--color-success); /* Si tienes un color verde para los precios, queda genial aquí */
+    color: var(--color-success);
 }
 
 .info-header{
@@ -160,76 +155,68 @@ body{
 
 .contenedor-botones {
     display: flex;
-    justify-content: center; /* Clava el botón en el centro horizontal */
+    justify-content: center;
     width: 100%;
     margin-top: 25px;
-    gap: 45px; /* Espacio entre los botones */
+    gap: 45px;
 }
 
 .btn-limpiar-carrito{
-    /* 1. Reset básico y tipografía */
-    background-color: rgba(239, 68, 68, 0.1); /* Rojo sutil y transparente */
-    color: #f87171; /* Texto rojo pastel/alerta */
+    background-color: rgba(239, 68, 68, 0.1); 
+    color: #f87171;
     border: 1px solid rgba(239, 68, 68, 0.4);
-    font-family: var(--font-secondary); /* Tu fuente "Roboto Condensed" */
+    font-family: var(--font-secondary);
     font-size: 1rem;
     font-weight: bold;
     letter-spacing: 1px;
     
-    /* 2. Forma y espaciado */
     padding: 12px 24px;
-    border-radius: 8px; /* Esquinas suavizadas */
+    border-radius: 8px;
     cursor: pointer;
     
-    /* 3. Transición suave para los efectos */
     transition: all 0.3s ease;
     display: block;
 }
 
 .btn-limpiar-carrito:hover {
-    background-color: #ef4444; /* Rojo sólido */
-    color: #ffffff; /* Texto blanco brillante */
+    background-color: #ef4444;
+    color: #ffffff;
     border-color: #f87171;
-    /* Sombra de neón roja súper pro */
     box-shadow: 0 0 15px rgba(239, 68, 68, 0.5);
-    transform: translateY(-2px); /* Se eleva un poquito */
+    transform: translateY(-2px);
 }
 
 .btn-limpiar-carrito:active {
-    transform: translateY(0); /* Vuelve a su posición original */
+    transform: translateY(0);
     box-shadow: 0 0 5px rgba(239, 68, 68, 0.3);
 }
 
 .btn-comprar {
-    /* 1. Reset básico y tipografía */
-    background-color: rgba(0, 255, 204, 0.1); /* Verde neón sutil y transparente */
-    color: #00ffcc; /* Texto verde pastel/alerta */
+    background-color: rgba(0, 255, 204, 0.1);
+    color: #00ffcc;
     border: 1px solid rgba(0, 255, 204, 0.4);
-    font-family: var(--font-secondary); /* Tu fuente "Roboto Condensed" */
+    font-family: var(--font-secondary);
     font-size: 1rem;
     font-weight: bold;
     letter-spacing: 1px;
 
-    /* 2. Forma y espaciado */
     padding: 12px 24px;
-    border-radius: 8px; /* Esquinas suavizadas */
+    border-radius: 8px;
     cursor: pointer;
 
-    /* 3. Transición suave para los efectos */
     transition: all 0.3s ease;
     display: block;
 }
 
 .btn-comprar:hover {
-    background-color: #00b38f; /* Verde sólido al pasar el mouse */
-    color: #ffffff; /* Texto blanco brillante */
+    background-color: #00b38f;
+    color: #ffffff;
     border-color: #00ffcc;
-    /* Sombra de neón verde súper pro */
     box-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
-    transform: translateY(-2px); /* Se eleva un poquito */
+    transform: translateY(-2px);
 }
 
 .btn-comprar:active {
-    transform: translateY(0); /* Vuelve a su posición original */
+    transform: translateY(0);
     box-shadow: 0 0 5px rgba(0, 255, 204, 0.3);
 }

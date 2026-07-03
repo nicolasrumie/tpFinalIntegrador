@@ -21,26 +21,26 @@
 }
 
 #ticket-btn{
-    background-color: #0056b3; /* Azul base */
+    background-color: #0056b3;
     color: #ffffff;
     font-weight: bold;
-    font-family: 'Oswald', sans-serif; /* Cambia por la fuente de tu proyecto si es otra */
+    font-family: 'Oswald', sans-serif;
     padding: 10px 20px;
-    border: 2px solid #007bff; /* Borde un toque más claro */
+    border: 2px solid #007bff;
     border-radius: 8px;
     cursor: pointer;
     font-size: 1rem;
     transition: all 0.3s ease;
     
-    /* El brillo sutil inicial (como el botón rojo en image_273e1a.png) */
+    /* El brillo sutil inicial*/
     box-shadow: 0 0 12px rgba(0, 123, 255, 0.4);
 }
 
 #ticket-btn:hover {
-    background-color: #007bff; /* Se ilumina el fondo */
+    background-color: #007bff;
     border-color: #00a2ff;
     
-    /* Brillo intenso (como el botón verde en image_273e20.png) */
+    /* Brillo intenso */
     box-shadow: 0 0 18px rgba(0, 162, 255, 0.8);
     transform: translateY(-1px); /* Un pequeño salto sutil */
 }
@@ -52,34 +52,31 @@
 }
 
 #back-btn {
-    background-color: #1a1a2e; /* Un azul/gris oscuro que resalta sutilmente sobre el fondo */
-    color: #b0b0c0; /* Texto gris claro, no blanco puro, para que sea secundario */
+    background-color: #1a1a2e;
+    color: #b0b0c0;
     font-weight: bold;
-    font-family: 'Roboto Condensed', system-ui, sans-serif; /* Usando tu variable de fuente */
+    font-family: 'Roboto Condensed', system-ui, sans-serif;
     padding: 10px 20px;
-    border: 2px solid #30304a; /* Borde apagado */
+    border: 2px solid #30304a;
     border-radius: 8px;
     cursor: pointer;
     font-size: 1rem;
     transition: all 0.3s ease;
-    margin-right: 10px; /* Separación con el botón de descargar */
+    margin-right: 10px;
     
-    /* Brillo muy tenue para que combine con el resto de la interfaz */
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
 }
 
-/* Efecto Hover */
 #back-btn:hover {
     background-color: #25253b; 
-    color: #ffffff; /* El texto pasa a blanco al enfocarlo */
-    border-color: #50507a; /* El borde se ilumina un poco */
+    color: #ffffff;
+    border-color: #50507a;
     
     /* Brillo blanco/azulado sutil */
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
     transform: translateY(-1px);
 }
 
-/* Efecto Active */
 #back-btn:active {
     transform: translateY(1px);
     box-shadow: 0 0 5px rgba(255, 255, 255, 0.05);

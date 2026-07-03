@@ -11,7 +11,7 @@ const insertDetalleVenta = (ventaId, productoId, cantidad) => {
 };
 
 const obtenerIdPorNombre = (nombreProducto) => {
-    const sql = "SELECT id FROM products WHERE name = ? LIMIT 1"; // Ajustá 'name' o 'productos' según tus tablas
+    const sql = "SELECT id FROM products WHERE name = ? LIMIT 1";
     return connection.query(sql, [nombreProducto]);
 };
 

@@ -1,4 +1,3 @@
-// 2. Función principal que se ejecuta al hacer click
 async function login() {
     limpiarError(); // Limpiar errores previos antes de validar nuevamente
 

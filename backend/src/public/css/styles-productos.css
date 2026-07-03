@@ -22,7 +22,7 @@ body{
     border-color: #8c6f2f;
 }
 
-/*Parte de los productos, osea lo que no es header*/
+/*Parte de los productos, o sea lo que no es header*/
 .products-main {
     min-height: calc(100vh - 72px);
     background-color: #080813;

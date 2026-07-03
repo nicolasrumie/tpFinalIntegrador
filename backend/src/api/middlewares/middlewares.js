@@ -11,7 +11,7 @@ export const loggerURL = (req, res, next) => {
     let fecha = new Date();
     console.log(`[${fecha.toLocaleDateString()} ${fecha.toLocaleTimeString()}] ${req.method} ${req.url}`);
     
-    next(); // next() da paso a que continue la respuesta o el siguiente middleware (en caso de haberlo)
+    next();
 };
 
 export const validateProduct = (req, res, next) => {

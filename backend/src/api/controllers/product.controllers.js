@@ -1,9 +1,8 @@
 import ProductModels from "../models/product.models.js";
 
 export const getAllProducts = async (req, res) => {
-    const [rows] = await ProductModels.selectAllProducts();
 
-    // console.log(rows);
+    const [rows] = await ProductModels.selectAllProducts();
 
     res.status(200).json({
         payload: rows
@@ -11,6 +10,7 @@ export const getAllProducts = async (req, res) => {
 };
 
 export const getActiveProducts = async (req, res) => {
+
     try {
             const [rows] = await ProductModels.selectActiveProducts();
 
@@ -25,14 +25,13 @@ export const getActiveProducts = async (req, res) => {
                 message: "Error interno del servidor"
             });
     }
+    
 };
 
 export const getProductById = async (req, res) => {
-    const id = req.params.id; // Obtendo el valor que paso por la URL
+    const id = req.params.id; 
 
     const [rows] = await ProductModels.selectProductById(id);
-
-    // console.log(rows);
 
     res.status(200).json({
         payload: rows

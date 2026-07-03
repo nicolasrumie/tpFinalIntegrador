@@ -105,3 +105,88 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+CREATE TABLE `ventas` (
+  `id` int(11) NOT NULL,
+  `nombre_usuario` varchar(100) NOT NULL,
+  `fecha` date NOT NULL,
+  `precio_total` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `ventas`
+--
+
+INSERT INTO `ventas` (`id`, `nombre_usuario`, `fecha`, `precio_total`) VALUES
+(2, 'asdas', '2026-07-03', 80999.90),
+(3, 'asdasd', '2026-07-03', 80999.90),
+(4, 'sadad', '2026-07-03', 80999.90),
+(5, 'sadasd', '2026-07-03', 80999.90),
+(6, 'asdasd', '2026-07-03', 80999.90),
+(7, 'asdasd', '2026-07-03', 80999.90),
+(8, 'asdasd', '2026-07-03', 80999.90),
+(9, 'asdasd', '2026-07-03', 10499.98);
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `ventas`
+--
+ALTER TABLE `ventas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `ventas`
+--
+ALTER TABLE `ventas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+COMMIT;
+
+CREATE TABLE `ventas_productos` (
+  `id` int(11) NOT NULL,
+  `id_venta` int(11) NOT NULL,
+  `id_producto` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `ventas_productos`
+--
+
+INSERT INTO `ventas_productos` (`id`, `id_venta`, `id_producto`, `cantidad`) VALUES
+(1, 8, 2, 2),
+(2, 8, 3, 4),
+(3, 8, 4, 4),
+(4, 8, 6, 1),
+(5, 9, 2, 1),
+(6, 9, 3, 1);
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `ventas_productos`
+--
+ALTER TABLE `ventas_productos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_venta` (`id_venta`),
+  ADD KEY `id_producto` (`id_producto`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `ventas_productos`
+--
+ALTER TABLE `ventas_productos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+COMMIT;

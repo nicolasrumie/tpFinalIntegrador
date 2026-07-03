@@ -46,6 +46,7 @@ function cargarProductosCarrito()
 
     // Actualizar el elemento del valor final en la vista con el total calculado
     montoFinal.innerText = `Total: $${totalAcumulado.toFixed(2)}`;
+    
 }
 
 function limpiarCarrito() 
@@ -77,4 +78,55 @@ window.addEventListener("DOMContentLoaded", () =>
     document.querySelector(".btn-seguir-comprando").addEventListener("click", productsView);
     document.querySelector(".navbar-name-logo").addEventListener("click", indexView);
     document.querySelector(".btn-comprar").addEventListener("click", ticketCartView);
+    const botonComprar = document.querySelector('.btn-comprar');
+
+    if (botonComprar) {
+        botonComprar.addEventListener('click', async () => {
+            
+            // 1. Traer el carrito desde el sessionStorage
+            const carrito = JSON.parse(sessionStorage.getItem('carrito')) || [];
+
+            // 1b. Mapear mandando el NOMBRE del juego en la propiedad 'name'
+            const productosMapeados = carrito.map(producto => {
+                return {
+                    name: producto.nombre,
+                    cantidad: producto.cantidad || 1
+                };
+            });
+
+            // Armar el objeto final
+            const datosCompra = {
+                nombre_usuario: sessionStorage.getItem('username'),
+                precio_total: document.getElementById('valor-final').innerText.replace('Total: $', ''), // Extrae solo el número
+                productos: productosMapeados 
+            };
+
+            console.log("=== DATOS QUE SALEN DEL FRONTEND ===");
+            console.log(datosCompra);
+            console.log(datosCompra.productos[0]);
+
+            // 2. Envío al backend
+            try {
+                const response = await fetch('/api/ventas', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(datosCompra)
+                });
+
+                const resultado = await response.json();
+
+                if (response.ok) {
+                    // 3. Si todo salió bien, vaciamos el carrito y redirigimos
+                    sessionStorage.removeItem('carrito');
+                    window.location.href = '/carrito-tickets';
+                } else {
+                    alert("Hubo un error al procesar la compra: " + resultado.message);
+                }
+            } catch (error) {
+                console.error("Error en la petición: ", error);
+            }
+        });
+    }
 });

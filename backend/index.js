@@ -9,7 +9,7 @@ import cors from "cors";
 import session from "express-session";
 import bcrypt from "bcrypt";
 import { loggerURL } from "./src/api/middlewares/middlewares.js";
-import { authRoutes, productRoutes, viewRoutes } from "./src/api/routes/index.js";
+import { authRoutes, productRoutes, viewRoutes, ventasRoutes } from "./src/api/routes/index.js";
 import { requireAdmin } from "./src/api/middlewares/middlewares.js";
 
 const app = express();
@@ -19,7 +19,6 @@ const app = express();
 const PORT = environments.port;
 const { port, session_key } = environments;
 console.log("CONFIGURACION LEIDA:", environments);
-
 
 /////////////////////
 // Middlewares
@@ -47,14 +46,24 @@ app.use(express.static(join(__dirname, "src", "public")));
 // Middleware logger para analizar todas las solicitudes por consola (tener el historial del consumo de nuestra Api REST en la consola)
 app.use(loggerURL);
 
-
-
-
 /////////////////////
 // Endpoints
 app.get("/", (req, res) => {
     res.send("Servidor corriendo");
 });
+
+app.use("/api", ventasRoutes);
+app.use("/", viewRoutes);
+app.use("/api/products", productRoutes);
+app.use("/admin", authRoutes); // Protegemos las rutas de productos para admin
+
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en el puerto ${PORT}`);
+});
+
+
+
+
 
 
 /*app.get("/admin/get", requireAdmin, (req, res) => {
@@ -76,16 +85,6 @@ app.get("/admin/put", requireAdmin, (req, res) => {
 app.get("/admin/delete", requireAdmin, (req, res) => {
     res.render("admin/delete");
 });*/
-
-app.use("/", viewRoutes);
-app.use("/api/products", productRoutes);
-app.use("/admin", authRoutes); // Protegemos las rutas de productos para admin
-
-
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en el puerto ${PORT}`);
-});
-
 
 // TO DO -> Middleware para parsear JSON en las solcitudes POST y PUT
 

@@ -57,9 +57,6 @@ function productsView(){
 function indexView(){
     window.location.href = "/index";
 }
-function ticketCartView(){
-    window.location.href = "/carrito-tickets";
-}
 
 // Asociar evento al botón cuando la página carga
 window.addEventListener("DOMContentLoaded", () =>
@@ -68,17 +65,17 @@ window.addEventListener("DOMContentLoaded", () =>
     document.querySelector(".btn-limpiar-carrito").addEventListener("click", limpiarCarrito);
     document.querySelector(".btn-seguir-comprando").addEventListener("click", productsView);
     document.querySelector(".navbar-name-logo").addEventListener("click", indexView);
-    document.querySelector(".btn-comprar").addEventListener("click", ticketCartView);
+    
     const botonComprar = document.querySelector('.btn-comprar');
 
     if (botonComprar) {
         botonComprar.addEventListener('click', async () => {
             
             // 1. Traer el carrito desde el sessionStorage
-            const carrito = JSON.parse(sessionStorage.getItem('carrito')) || [];
+            const carritoMap = JSON.parse(sessionStorage.getItem('carrito')) || [];
 
             // 1b. Mapear mandando el NOMBRE del juego en la propiedad 'name'
-            const productosMapeados = carrito.map(producto => {
+            const productosMapeados = carritoMap.map(producto => {
                 return {
                     name: producto.nombre,
                     cantidad: producto.cantidad || 1
@@ -92,9 +89,6 @@ window.addEventListener("DOMContentLoaded", () =>
                 productos: productosMapeados 
             };
 
-            console.log("=== DATOS QUE SALEN DEL FRONTEND ===");
-            console.log(datosCompra);
-            console.log(datosCompra.productos[0]);
 
             // 2. Envío al backend
             try {

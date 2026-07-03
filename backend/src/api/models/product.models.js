@@ -17,7 +17,7 @@ const selectProductById = (id) => {
 
 const insertNewProduct = (product) => {
     const sql = "INSERT INTO products (name, image, category, price) VALUES (?, ?, ?, ?)";
-    return connection.query(sql, [name, image, category, price]);
+    return connection.query(sql, [product.name, product.image, product.category, product.price]);
 };
 
 const updateProductById = (id, product) => {

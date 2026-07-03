@@ -67,7 +67,7 @@ export const updateProduct = async (req, res) => {
 
         const { name, image, category, price } = req.body;
 
-        const [rows] = await ProductModels.updateProduct(id, { name, image, category, price });
+        const [rows] = await ProductModels.updateProductById(id, { name, image, category, price });
 
         res.status(200).json({
             message: "Producto actualizado con exito",

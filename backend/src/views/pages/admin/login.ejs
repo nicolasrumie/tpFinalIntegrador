@@ -8,8 +8,8 @@
         <p class="info-navbar">Login administrador</p>
 
         <div class="admin-nav-links">
-        <a href="/index" class="nav-admin-button">Volver al inicio</a>
-    </div>
+            <a href="/index" class="nav-admin-button">Volver al inicio</a>
+        </div>
     </nav>
 
     <main class="main-container">
@@ -36,16 +36,6 @@
         </section>
     </main>
 
-    <script>
-        const btnAccesoRapido = document.getElementById("btn-acceso-rapido");
-        const inputEmail = document.getElementById("email");
-        const inputPassword = document.getElementById("password");
-
-        btnAccesoRapido.addEventListener("click", () => {
-            inputEmail.value = "admin@mizuta.com";
-            inputPassword.value = "admin123";
-        });
-        
-    </script>
+    <script src="/js/admin/login.js"></script>
 
 <%- include("../../partials/footer.ejs") %>

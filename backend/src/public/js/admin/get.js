@@ -1,0 +1,53 @@
+const btnCargar = document.getElementById("btn-cargar");
+const contenedorProductos = document.getElementById("contenedor-productos");
+
+const url = "http://localhost:3001/api/products";
+
+async function obtenerProductos() {
+    try {
+        const response = await fetch(url);
+
+        const data = await response.json();
+        console.log(data);
+
+        mostrarProductos(data.payload);
+    } catch (error) {
+        console.log(error);
+        contenedorProductos.innerHTML = `
+            <p>Error al obtener los productos</p>`;
+    }
+}
+
+function mostrarProductos(productos) {
+    let html = `<div class="admin-products-grid">`;
+
+    productos.forEach(producto => {
+        let estado = "";
+
+        if (producto.active == 1) {
+            estado = "Activo";
+        } else {
+            estado = "Inactivo";
+        }
+
+        html += `
+            <div class="admin-product-card">
+                <img class="admin-product-img" src="${producto.image}" alt="${producto.name}">
+
+                <div class="admin-product-info">
+                    <h3>${producto.name}</h3>
+
+                    <p><strong>ID:</strong> ${producto.id}</p>
+                    <p><strong>Categoria:</strong> ${producto.category}</p>
+                    <p><strong>Precio:</strong> $${producto.price}</p>
+                    <p><strong>Estado:</strong> ${estado}</p>
+                </div>
+            </div>`;
+    });
+
+    html += `</div>`;
+
+    contenedorProductos.innerHTML = html;
+}
+
+btnCargar.addEventListener("click", obtenerProductos);

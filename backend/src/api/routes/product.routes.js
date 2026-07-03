@@ -15,9 +15,9 @@ router.post("/", validateProduct, createProduct);
 
 router.put("/:id", validateProduct, updateProduct);
 
-router.put("/products/:id", unactiveProduct);
+router.delete("/:id", unactiveProduct);
 
-router.put("/active/:id", activeProduct);
+router.put("/:id/active", activeProduct);
 
 
 export default router;

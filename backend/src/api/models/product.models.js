@@ -22,7 +22,7 @@ const insertNewProduct = (product) => {
 
 const updateProductById = (id, product) => {
     const sql = "UPDATE products SET name = ?, image = ?, category = ?, price = ? WHERE id = ?";
-    return connection.query(sql, [name, image, category, price, id]);
+    return connection.query(sql, [product.name, product.image, product.category, product.price, id]);
 };
 
 const unactiveProductById = (id) => {

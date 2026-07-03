@@ -1,9 +1,3 @@
-//--- Funcion que obtiene el carrito del LocalStorage, lo parsea a un array y lo retorna ---//
-/*if (!sessionStorage.getItem("nombreCliente")) {
-    // Si no hay nombre en la sesión, lo patitas a la calle (al index)
-    window.location.href = "/index"; // Ajustá la ruta según dónde esté tu index
-}*/
-
 function obtenerCarrito() 
 {
     const carritoString = sessionStorage.getItem("carrito");
@@ -108,14 +102,12 @@ function restarDelCarrito(e)
 
 const contenedorTarjetas = document.getElementById("listado-productos");
 
-// 2. Escuchamos el click
 contenedorTarjetas.addEventListener("click", (e) => {
-    // Si hace click en el botón de sumar (+)
+    
     if (e.target.classList.contains("btn-sumar-a-carrito")) {
         sumarAlCarrito(e);
     }
     
-    // Si hace click en el botón de restar (-)
     if (e.target.classList.contains("btn-restar-a-carrito")) {
         restarDelCarrito(e);
     }
@@ -131,11 +123,11 @@ function indexView(){
     window.location.href = "/index";
 }
 
-const nombreCliente = sessionStorage.getItem("username"); // Reemplazá "username" por tu clave real
+const nombreCliente = sessionStorage.getItem("username");
 
 if (!nombreCliente) {
     // Si no hay nombre en el sessionStorage, lo mandamos directo al login
-    window.location.href = "/index"; // O la ruta de tu login
+    window.location.href = "/index";
 }
 
 window.addEventListener("DOMContentLoaded", () => {

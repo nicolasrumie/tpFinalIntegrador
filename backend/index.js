@@ -5,10 +5,12 @@ import environments from "./src/api/config/environments.js";
 import connection from "./src/api/database/db.js";
 import { join } from "path";
 import { __dirname } from './src/api/utils/index.js';
-import viewRoutes from './src/api/routes/view.routes.js';
 import cors from "cors";
 import session from "express-session";
 import bcrypt from "bcrypt";
+import { loggerURL } from "./src/api/middlewares/middlewares.js";
+import { authRoutes, productRoutes, viewRoutes } from "./src/api/routes/index.js";
+import { requireAdmin } from "./src/api/middlewares/middlewares.js";
 
 const app = express();
 
@@ -43,25 +45,9 @@ app.set("view engine", "ejs"); // Motor de vistas
 app.use(express.static(join(__dirname, "src", "public")));
 
 // Middleware logger para analizar todas las solicitudes por consola (tener el historial del consumo de nuestra Api REST en la consola)
-app.use((req, res, next) => {
-    let fecha = new Date();
-    console.log(`[${fecha.toLocaleDateString()} ${fecha.toLocaleTimeString()}] ${req.method} ${req.url}`);
-    
-    next(); // next() da paso a que continue la respuesta o el siguiente middleware (en caso de haberlo)
-});
+app.use(loggerURL);
 
-// TO DO -> Middleware para parsear JSON en las solcitudes POST y PUT
 
-function validateProduct(req, res, next) {
-    const {name, image, category, price } = req.body;
-
-    if (!name || !image || !category || !price) {
-        return res.status(400).json({
-            message: "Faltan datos obligatorios"
-        });
-    }
-    next();
-}
 
 
 /////////////////////
@@ -70,13 +56,59 @@ app.get("/", (req, res) => {
     res.send("Servidor corriendo");
 });
 
-app.get("/admin/login", (req, res) => {
+
+app.get("/admin/get", requireAdmin, (req, res) => {
+    res.render("admin/get");
+});
+
+app.get("/admin/getById", requireAdmin, (req, res) => {
+    res.render("admin/getById");
+});
+
+app.get("/admin/post", requireAdmin, (req, res) => {
+    res.render("admin/post");
+});
+
+app.get("/admin/put", requireAdmin, (req, res) => {
+    res.render("admin/put");
+});
+
+app.get("/admin/delete", requireAdmin, (req, res) => {
+    res.render("admin/delete");
+});
+
+app.use("/", viewRoutes);
+app.use("/api/products", productRoutes);
+app.use("/admin", authRoutes); // Protegemos las rutas de productos para admin
+
+
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en el puerto ${PORT}`);
+});
+
+
+// TO DO -> Middleware para parsear JSON en las solcitudes POST y PUT
+
+/*function validateProduct(req, res, next) {
+    const {name, image, category, price } = req.body;
+
+    if (!name || !image || !category || !price) {
+        return res.status(400).json({
+            message: "Faltan datos obligatorios"
+        });
+    }
+    next();
+}*/
+
+
+/*app.get("/admin/login", (req, res) => {
     res.render("admin/login", {
         error: undefined
     });
-});
+});*/
 
 // GET all products
+/*
 app.get("/api/products", async (req, res) => {
     // const sql = "SELECT * FROM products";
     // aca traere la conexion para tirarle sentencias
@@ -213,18 +245,11 @@ app.put("/api/products/:id/active", async (req, res) => {
         });
     }
 });
+*/
+///////////////////////////   Admin Modulation ///////////////////////////
 
 
-function requireAdmin(req, res, next) {
-    if (!req.session.admin) {
-        return res.redirect("/admin/login");
-    }
-
-    next();
-}
-
-
-app.post("/api/admin", async (req, res) => {
+/*app.post("/api/admin", async (req, res) => {
     try {
         const { name, email, password } = req.body;
 
@@ -252,9 +277,9 @@ app.post("/api/admin", async (req, res) => {
             message: "Error interno del servidor"
         });
     }
-});
+});*/
 
-app.post("/admin/login", async (req, res) => {
+/*app.post("/admin/login", async (req, res) => {
     try {
         const { email, password } = req.body;
 
@@ -299,9 +324,9 @@ app.post("/admin/login", async (req, res) => {
             error: "Error interno del servidor"
         });
     }
-});
+});*/
 
-app.post("/admin/logout", (req, res) => {
+/*app.post("/admin/logout", (req, res) => {
     req.session.destroy((error) => {
         if (error) {
             console.log(error);
@@ -310,58 +335,6 @@ app.post("/admin/logout", (req, res) => {
 
         res.redirect("/admin/login");
     });
-});
+});*/
 
-app.get("/admin/get", requireAdmin, (req, res) => {
-    res.render("admin/get");
-});
 
-app.get("/admin/getById", requireAdmin, (req, res) => {
-    res.render("admin/getById");
-});
-
-app.get("/admin/post", requireAdmin, (req, res) => {
-    res.render("admin/post");
-});
-
-app.get("/admin/put", requireAdmin, (req, res) => {
-    res.render("admin/put");
-});
-
-app.get("/admin/delete", requireAdmin, (req, res) => {
-    res.render("admin/delete");
-});
-
-app.post('/index', (req, res) => {
-    // 1. Extraemos 'nombre' y lo renombramos a 'name'
-    const { nombre: name } = req.body; 
-
-    // 2. Validaciones en el Servidor
-    if (!name || name.trim() === "") {
-        return res.status(400).json({ 
-            message: "El nombre es obligatorio en el servidor." 
-        });
-    }
-
-    const soloLetras = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
-    if (!soloLetras.test(name)) {
-        return res.status(400).json({ 
-            message: "El nombre solo debe contener letras en el servidor." 
-        });
-    }
-
-    // 3. Si todo está bien, guardamos la sesión y RESPONDEMOS al frontend
-    req.session.user = { name: name.trim() };
-
-    // ESTO ES LO QUE FALTABA: Avisarle al frontend que fue exitoso
-    return res.status(200).json({
-        message: "Login exitoso",
-        redirectUrl: "/productos"
-    });
-});
-
-app.use("/", viewRoutes);
-
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en el puerto ${PORT}`);
-});

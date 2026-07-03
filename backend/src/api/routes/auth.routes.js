@@ -12,11 +12,11 @@ router.post("/logout", adminLogout);
 router.post("/create", createAdmin);
 router.post("/login", loginAdmin);
 
-router.get("/admin/get", requireAdmin, adminGetView);
-router.get("/admin/getById", requireAdmin, adminGetByIdView);
-router.get("/admin/post", requireAdmin, adminPostView);
-router.get("/admin/put", requireAdmin, adminPutView);
-router.get("/admin/delete", requireAdmin, adminDeleteView);
+router.get("/get", requireAdmin, adminGetView);
+router.get("/getById", requireAdmin, adminGetByIdView);
+router.get("/post", requireAdmin, adminPostView);
+router.get("/put", requireAdmin, adminPutView);
+router.get("/delete", requireAdmin, adminDeleteView);
     
 
 export default router;

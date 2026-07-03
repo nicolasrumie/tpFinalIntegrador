@@ -57,7 +57,7 @@ app.get("/", (req, res) => {
 });
 
 
-app.get("/admin/get", requireAdmin, (req, res) => {
+/*app.get("/admin/get", requireAdmin, (req, res) => {
     res.render("admin/get");
 });
 
@@ -75,7 +75,7 @@ app.get("/admin/put", requireAdmin, (req, res) => {
 
 app.get("/admin/delete", requireAdmin, (req, res) => {
     res.render("admin/delete");
-});
+});*/
 
 app.use("/", viewRoutes);
 app.use("/api/products", productRoutes);

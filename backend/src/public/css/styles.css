@@ -226,12 +226,33 @@ body{
     font-size: 1.2rem;
 }
 
-/*Botonoes del apartado de admin*/
+/*Correccion*/
+.input-user::placeholder {
+    color: var(--text-muted);
+}
+
+.input-user:focus {
+    background-color: transparent;
+    color: var(--text-primary);
+    outline: none;
+    box-shadow: none;
+}
+
+.input-user:-webkit-autofill,
+.input-user:-webkit-autofill:hover,
+.input-user:-webkit-autofill:focus,
+.input-user:-webkit-autofill:active {
+    -webkit-text-fill-color: var(--text-primary);
+    box-shadow: 0 0 0 1000px var(--bg-secondary) inset;
+    transition: background-color 9999s ease-in-out 0s;
+}
+
+/*Botones del apartado de admin*/
 
 .admin-nav-links {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 10px;
 }
 
 .admin-nav-links
@@ -239,6 +260,13 @@ body{
     margin: 0;
     display: inline-block;
     white-space: nowrap;
+    font-size: 0.95rem;
+    padding: 7px 12px;
+    border-radius: 8px;
+}
+
+.admin-nav-links form {
+    margin: 0;
 }
 
 .admin-action-button {
@@ -286,6 +314,32 @@ body{
 .admin-input:focus {
     border-color: var(--color-accent);
     box-shadow: 0 0 10px rgba(0, 229, 255, 0.35);
+}
+
+.admin-products-grid {
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.admin-product-card {
+    background-color: var(--bg-secondary);
+    border: 2px solid var(--color-primary);
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: 0 0 15px rgba(108, 71, 255, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.admin-product-img {
+    width: 100%;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 14px;
 }
 
 /*El post ordenado de forma vertical*/

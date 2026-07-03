@@ -1,31 +1,5 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin | Ver productos</title>
-
-    <link rel="stylesheet" href="/css/styles.css">
-</head>
-<body>
-    <nav id="navbar">
-        <div class="navbar-name-logo">
-            <span>Mizuta Admin</span>
-        </div>
-
-        <p class="info-navbar">GET | Ver todos los productos</p>
-
-        <div class="admin-nav-links">
-            <a class="nav-admin-button" href="/admin/getById">Consultar</a>
-            <a class="nav-admin-button" href="/admin/post">Crear</a>
-            <a class="nav-admin-button" href="/admin/put">Modificar</a>
-            <a class="nav-admin-button" href="/admin/delete">Baja / Alta</a>
-
-            <form action="/admin/logout" method="POST">
-                <button type="submit" class="nav-admin-button">Cerrar sesion</button>
-            </form>
-        </div>
-    </nav>
+<%- include("../../partials/head.ejs") %>
+<%- include("../../partials/adminNav.ejs") %>
 
     <main class="main-container">
         <section>
@@ -58,22 +32,37 @@
         }
 
         function mostrarProductos(productos) {
-            let html = "";
+            let html = `<div class="admin-products-grid">`;
+
             productos.forEach(producto => {
+                let estado = "";
+
+                if (producto.active == 1) {
+                    estado = "Activo";
+                } else {
+                    estado = "Inactivo";
+                }
+
                 html += `
-                    <div>
-                        <h3>${producto.name}</h3>
-                        <p>ID: ${producto.id}</p>
-                        <p>Categoria: ${producto.category}</p>
-                        <p>Precio: $${producto.price}</p>
-                        <p>Activo: ${producto.active}</p>
-                        <img src="${producto.image}" alt="${producto.name}" width="150">
-                        <hr>
+                    <div class="admin-product-card">
+                        <img class="admin-product-img" src="${producto.image}" alt="${producto.name}">
+
+                        <div class="admin-product-info">
+                            <h3>${producto.name}</h3>
+
+                            <p><strong>ID:</strong> ${producto.id}</p>
+                            <p><strong>Categoria:</strong> ${producto.category}</p>
+                            <p><strong>Precio:</strong> $${producto.price}</p>
+                            <p><strong>Estado:</strong> ${estado}</p>
+                        </div>
                     </div>`;
             });
+
+            html += `</div>`;
+
             contenedorProductos.innerHTML = html;
         }
         btnCargar.addEventListener("click", obtenerProductos);
     </script>
-</body>
-</html>
+
+<%- include("../../partials/footer.ejs") %>

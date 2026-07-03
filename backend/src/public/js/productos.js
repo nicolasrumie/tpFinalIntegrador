@@ -1,3 +1,100 @@
+const listadoProductos = document.getElementById("listado-productos");
+const botonesCategoria = document.querySelectorAll(".category-button");
+
+const url = "http://localhost:3001/api/products/active";
+
+let productosGlobales = [];
+let categoriaActual = "todos";
+
+async function obtenerProductos() {
+    try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            const parsedResponse = await response.json();
+            throw new Error(parsedResponse.message);
+        }
+
+        const { payload } = await response.json();
+
+        productosGlobales = payload;
+
+        filtrarPorCategoria();
+
+    } catch (error) {
+        console.error(error);
+        mostrarError(error.message);
+    }
+}
+
+function filtrarPorCategoria() {
+    let productosFiltrados = productosGlobales;
+
+    if (categoriaActual !== "todos") {
+        productosFiltrados = productosGlobales.filter(producto => {
+            return producto.category.toLowerCase() === categoriaActual;
+        });
+    }
+
+    renderizarProductos(productosFiltrados);
+}
+
+function renderizarProductos(productos) {
+    if (productos.length === 0) {
+        listadoProductos.innerHTML = `
+            <p class="mensaje-error">No hay productos en esta categoria.</p>`;
+        return;
+    }
+
+    let htmlProductos = "";
+    
+    productos.forEach(producto => {
+        htmlProductos += `
+            <article class="product-card">
+                <div class="product-image-area">
+                    <img src="${producto.image}" alt="${producto.name}">
+                </div>
+
+                <div class="product-info">
+                    <span class="product-badge">${producto.category}</span>
+                    <h3 class="nombre-producto">${producto.name}</h3>
+                    
+                    <div class="product-bottom">
+                        <strong class="precio-producto">$${producto.price}</strong>
+
+                        <div class="add-less-buttons">
+                            <button class="btn-sumar-a-carrito"> + </button>
+                            <button class="btn-restar-a-carrito"> - </button>
+                        </div>
+                    </div>
+                </div>
+            </article>`;
+    });
+
+    listadoProductos.innerHTML = htmlProductos;
+}
+
+function mostrarError(mensaje) {
+    listadoProductos.innerHTML = `
+        <p class="mensaje-error">${mensaje}</p>`;
+}
+
+function configurarBotonesCategoria() {
+    botonesCategoria.forEach(boton => {
+        boton.addEventListener("click", () => {
+            botonesCategoria.forEach(btn => {
+                btn.classList.remove("active");
+            });
+
+            boton.classList.add("active");
+
+            categoriaActual = boton.dataset.category;
+
+            filtrarPorCategoria();
+        });
+    });
+}
+
 function obtenerCarrito() 
 {
     const carritoString = sessionStorage.getItem("carrito");
@@ -54,6 +151,7 @@ function sumarAlCarrito(e)
             cantidad: 1,
             precio: precio
         };
+
         carrito.push(nuevoProducto);
     }
 
@@ -100,19 +198,6 @@ function restarDelCarrito(e)
     }
 }
 
-const contenedorTarjetas = document.getElementById("listado-productos");
-
-contenedorTarjetas.addEventListener("click", (e) => {
-    
-    if (e.target.classList.contains("btn-sumar-a-carrito")) {
-        sumarAlCarrito(e);
-    }
-    
-    if (e.target.classList.contains("btn-restar-a-carrito")) {
-        restarDelCarrito(e);
-    }
-});
-
 function borrarCarrito()
 {
     sessionStorage.removeItem("carrito");
@@ -134,7 +219,23 @@ window.addEventListener("DOMContentLoaded", () => {
     // Leemos desde sessionStorage
     const clientName = sessionStorage.getItem("username");
     const nameContainer = document.getElementById("nombre-perfil");
+
     nameContainer.textContent = clientName ? clientName : "Invitado";
 
     document.querySelector(".navbar-name-logo").addEventListener("click", indexView);
+
+    configurarBotonesCategoria();
+
+    obtenerProductos();
+});
+
+listadoProductos.addEventListener("click", (e) => {
+    
+    if (e.target.classList.contains("btn-sumar-a-carrito")) {
+        sumarAlCarrito(e);
+    }
+    
+    if (e.target.classList.contains("btn-restar-a-carrito")) {
+        restarDelCarrito(e);
+    }
 });

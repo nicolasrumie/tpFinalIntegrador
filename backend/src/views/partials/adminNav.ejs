@@ -1,0 +1,19 @@
+<nav id="navbar">
+    <div class="navbar-name-logo">
+        <span>Mizuta Admin</span>
+    </div>
+
+    <p class="info-navbar"><%= adminTitle %></p>
+
+    <div class="admin-nav-links">
+        <a class="nav-admin-button" href="/admin/get">Ver todos</a>
+        <a class="nav-admin-button" href="/admin/getById">Consultar</a>
+        <a class="nav-admin-button" href="/admin/post">Crear</a>
+        <a class="nav-admin-button" href="/admin/put">Modificar</a>
+        <a class="nav-admin-button" href="/admin/delete">Baja / Alta</a>
+
+        <form action="/admin/logout" method="POST">
+            <button type="submit" class="nav-admin-button">Cerrar sesion</button>
+        </form>
+    </div>
+</nav>

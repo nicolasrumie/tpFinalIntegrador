@@ -1,32 +1,5 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin | PUT Producto</title>
-
-    <link rel="stylesheet" href="/css/styles.css">
-</head>
-<body>
-
-    <nav id="navbar">
-        <div class="navbar-name-logo">
-            <span>Mizuta Admin</span>
-        </div>
-
-        <p class="info-navbar">PUT | Modificar producto</p>
-
-        <div class="admin-nav-links">
-            <a class="nav-admin-button" href="/admin/get">Ver todos</a>
-            <a class="nav-admin-button" href="/admin/getById">Consultar</a>
-            <a class="nav-admin-button" href="/admin/post">Crear</a>
-            <a class="nav-admin-button" href="/admin/delete">Baja / Alta</a>
-
-            <form action="/admin/logout" method="POST">
-                <button type="submit" class="nav-admin-button">Cerrar sesion</button>
-            </form>
-        </div>
-    </nav>
+<%- include("../../partials/head.ejs") %>
+<%- include("../../partials/adminNav.ejs") %>
 
     <main class="main-container">
         <section class="admin-section">
@@ -214,5 +187,4 @@
         }
     </script>
 
-</body>
-</html>
+<%- include("../../partials/footer.ejs") %>

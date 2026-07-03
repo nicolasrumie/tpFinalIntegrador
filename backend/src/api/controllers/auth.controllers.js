@@ -1,14 +1,13 @@
-import connection from '../database/db.js';
 import bcrypt from 'bcrypt';
-import AuthModels  from '../models/auth.models.js';
-
+import AuthModels from '../models/auth.models.js';
 
 export const loginAdminRender = async (req, res) => {
     res.render("admin/login", {
+        title: "Admin | Login",
+        estilos: [],
         error: undefined
     });
-}
-
+};
 
 export const adminLogout = async (req, res) => {
     req.session.destroy((error) => {
@@ -19,7 +18,7 @@ export const adminLogout = async (req, res) => {
 
         res.redirect("/admin/login");
     });
-}
+};
 
 export const createAdmin = async (req, res) => {
     try {
@@ -33,7 +32,11 @@ export const createAdmin = async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const [rows] = await AuthModels.insertAdmin({ name, email, password: hashedPassword });
+        const [rows] = await AuthModels.insertAdmin({ 
+            name, 
+            email, 
+            password: hashedPassword 
+        });
 
         res.status(201).json({
             message: "Usuario administrador creado con exito",
@@ -47,7 +50,7 @@ export const createAdmin = async (req, res) => {
             message: "Error interno del servidor"
         });
     }
-}
+};
 
 export const loginAdmin = async (req, res) => {
     try {
@@ -55,6 +58,8 @@ export const loginAdmin = async (req, res) => {
 
         if (!email || !password) {
             return res.render("admin/login", {
+                title: "Admin | Login",
+                estilos: [],
                 error: "Faltan campos en el formulario"
             });
         }
@@ -63,6 +68,8 @@ export const loginAdmin = async (req, res) => {
 
         if (rows.length === 0) {
             return res.render("admin/login", {
+                title: "Admin | Login",
+                estilos: [],
                 error: "No existe un administrador con ese email"
             });
         }
@@ -73,6 +80,8 @@ export const loginAdmin = async (req, res) => {
 
         if (!match) {
             return res.render("admin/login", {
+                title: "Admin | Login",
+                estilos: [],
                 error: "Contraseña incorrecta"
             });
         }
@@ -89,7 +98,9 @@ export const loginAdmin = async (req, res) => {
         console.log(error);
 
         res.render("admin/login", {
+            title: "Admin | Login",
+            estilos: [],
             error: "Error interno del servidor"
         });
     }
-}
+};

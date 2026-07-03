@@ -6,7 +6,7 @@
         <section class="products-container">
 
             <div class="products-top">
-                <div><!--le puse fran provisional, luego cambiamos por el nombre del cliente-->
+                <div>
                     <h2>Hola, <span class="client-name" id="nombre-perfil"></span> 👋</h2>
                     <p>Elegí tus productos favoritos y armá tu carrito.</p>
                 </div>
@@ -15,92 +15,19 @@
             </div>
 
             <section class="category-tabs">
-                <button class="category-button active">✨ Todos</button>
-                <button class="category-button">🎮 Videojuegos</button>
-                <button class="category-button">🎧 Accesorios</button>
+                <button class="category-button active" data-category="todos">✨ Todos</button>
+                <button class="category-button" data-category="videojuegos">🎮 Videojuegos</button>
+                <button class="category-button" data-category="accesorios">🎧 Accesorios</button>
             </section>
-
-            <div class="search-box">
-                <span>🔍</span>
-                <input class="input-user" type="text" placeholder="Buscar producto...">
-            </div>
 
             <section class="products-grid" id="listado-productos">
-                <!--cuando pongamos los productos desde la base-->
+                <!-- Los productos se cargan desde productos.js -->
             </section>
-
-            <div class="pagination">
-                <button>‹ Anterior</button>
-                <button class="active-page">1</button>
-                <button>2</button>
-                <button>3</button>
-                <button>Siguiente ›</button>
-            </div>
 
         </section>
 
     </main>
 
-    
-    <script>
-        const listadoProductos = document.getElementById("listado-productos");
-
-        const url = "http://localhost:3001/api/products/active";
-
-        async function obtenerProductos() {
-            try {
-                const response = await fetch(url);
-
-                if (!response.ok) {
-                    const parsedResponse = await response.json();
-                    throw new Error(parsedResponse.message);
-                }
-
-                const { payload } = await response.json();
-                console.log(payload);
-
-                renderizarProductos(payload);
-            } catch (error) {
-                console.error(error);
-                mostrarError(error.message);
-            }
-        }
-
-        function renderizarProductos(productos) {
-            let htmlProductos = "";
-            
-            productos.forEach(producto => {
-                htmlProductos += `
-                    <article class="product-card">
-                        <div class="product-image-area">
-                            <img src="${producto.image}" alt="${producto.name}">
-                        </div>
-
-                        <div class="product-info">
-                            <span class="product-badge">${producto.category}</span>
-                            <h3 class="nombre-producto">${producto.name}</h3>
-                            
-                            <div class="product-bottom">
-                                <strong class="precio-producto">$${producto.price}</strong>
-                                <div class="add-less-buttons">
-                                    <button class="btn-sumar-a-carrito"> + </button>
-                                    <button class="btn-restar-a-carrito"> - </button>
-                                </div>
-                            </div>
-                        </div>
-                    </article>`;
-            });
-
-            listadoProductos.innerHTML = htmlProductos;
-        }
-
-        function mostrarError(mensaje) {
-            listadoProductos.innerHTML = `
-                <p class="mensaje-error">${mensaje}</p>`;
-        }
-
-        obtenerProductos();
-    </script>
     <script src="/js/productos.js"></script>
 
 <%- include("../partials/footer.ejs") %>
